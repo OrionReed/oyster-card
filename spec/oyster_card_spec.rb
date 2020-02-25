@@ -3,8 +3,7 @@ require 'oyster_card'
 RSpec.describe(OysterCard) do
   let(:dbl_station) { double("Station", name: "test station") }
 
-  it { is_expected.to(respond_to(:balance, :top_up, :touch_in, :touch_out)) }
-  it { is_expected.to(have_attributes(in_journey: false)) }
+  it { is_expected.to(respond_to(:balance, :top_up, :touch_in, :touch_out, :in_journey?)) }
 
   it 'has default balance of 0' do
     expect(subject.balance).to(eq(0))
@@ -23,15 +22,15 @@ RSpec.describe(OysterCard) do
       expect { subject.touch_in(dbl_station) }.to(raise_error("Not enough money, please top up"))
     end
 
-    it 'changes status of in_journey to true when in in_journey is false' do
+    it 'changes status of in_journey? to true when in in_journey? is false' do
       subject.top_up(10)
-      expect { subject.touch_in(dbl_station) }.to(change { subject.in_journey }.to(true))
+      expect { subject.touch_in(dbl_station) }.to(change { subject.in_journey? }.to(true))
     end
 
-    it 'in_journey stays true when already true' do
+    it 'in_journey? stays true when already true' do
       subject.top_up(10)
       subject.touch_in(dbl_station)
-      expect { subject.touch_in(dbl_station) }.to_not(change { subject.in_journey })
+      expect { subject.touch_in(dbl_station) }.to_not(change { subject.in_journey? })
     end
 
     it 'deducts minimum fare' do
@@ -48,15 +47,15 @@ RSpec.describe(OysterCard) do
   end
 
   context '#touch_out' do
-    it 'changes status of in_journey to false when in in_journey is true' do
+    it 'changes status of in_journey? to false when in in_journey? is true' do
       subject.top_up(10)
       subject.touch_in(dbl_station)
-      expect { subject.touch_out }.to(change { subject.in_journey }.to(false))
+      expect { subject.touch_out }.to(change { subject.in_journey? }.to(false))
     end
-    it 'in_journey stays false when already false' do
+    it 'in_journey? stays false when already false' do
       subject.top_up(10)
       subject.touch_out
-      expect { subject.touch_out }.to_not(change { subject.in_journey })
+      expect { subject.touch_out }.to_not(change { subject.in_journey? })
     end
   end
 end
