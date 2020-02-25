@@ -1,21 +1,54 @@
 require 'oyster_card'
 
-describe OysterCard do
-  it { is_expected.to(respond_to(:balance, :top_up)) }
+RSpec.describe(OysterCard) do
+  it { is_expected.to(respond_to(:balance, :top_up, :touch_in, :touch_out)) }
+  it { is_expected.to(have_attributes(in_journey: false)) }
+
   it 'has default balance of 0' do
     expect(subject.balance).to(eq(0))
   end
+
   it 'adds to balance when topped up' do
-    subject.top_up(5)
-    expect(subject.balance).to(eq(5))
+    expect { subject.top_up(5) }.to(change { subject.balance }.by(5))
   end
+
   it 'throws an error when exceeding max balance' do
-    expect { OysterCard.new.top_up(OysterCard::MAX_BALANCE + 1) }.to(raise_error("Exceeded maximum balance of £#{OysterCard::MAX_BALANCE}"))
+    expect { subject.top_up(OysterCard::MAX_BALANCE + 1) }.to(raise_error("Exceeded maximum balance"))
   end
-  subject { OysterCard.new }
-  it 'deducts balance from card' do
-    subject.top_up(15)
-    subject.deduct(5)
-    expect { subject.deduct(5) }.to(change { subject.balance }.by(-5))
+
+  context '#touch_in' do
+    it 'raises error when there are insufficient funds' do
+      expect { subject.touch_in }.to(raise_error("Not enough money, please top up"))
+    end
+
+    it 'changes status of in_journey to true when in in_journey is false' do
+      subject.top_up(10)
+      expect { subject.touch_in }.to(change { subject.in_journey }.to(true))
+    end
+
+    it 'in_journey stays true when already true' do
+      subject.top_up(10)
+      subject.touch_in
+      expect { subject.touch_in }.to_not(change { subject.in_journey })
+    end
+
+    it 'deducts minimum fare' do
+      subject.top_up(10)
+      subject.touch_in
+      expect { subject.touch_out }.to(change { subject.balance }.by(-1))
+    end
+  end
+
+  context '#touch_out' do
+    it 'changes status of in_journey to false when in in_journey is true' do
+      subject.top_up(10)
+      subject.touch_in
+      expect { subject.touch_out }.to(change { subject.in_journey }.to(false))
+    end
+    it 'in_journey stays false when already false' do
+      subject.top_up(10)
+      subject.touch_out
+      expect { subject.touch_out }.to_not(change { subject.in_journey })
+    end
   end
 end
