@@ -1,69 +1,89 @@
+require 'curses'
 require 'csv'
 require_relative 'station.rb'
 require_relative 'oyster_card.rb'
+require_relative 'dev/display.rb'
 
 class Interface
+  STATIONS_PATH = "./data/stations.csv"
+
   def initialize
-    @stations = CSV.parse(File.read("./data/stations.csv")).drop(1).map! { |s| Station.new(s.first, s.last) }
+    @stations = CSV.parse(File.read(STATIONS_PATH)).drop(1).map { |s| Station.new(s.first, s.last.to_i) }
+    @card = OysterCard.new
   end
 
   def run
-    print_string_at_speed("Welcome to your shiny new transport app!", 0.5)
-    # print_string_at_speed("Here are some options:", 0.5)
-    take_train(@stations.first, @stations.last, 0.5)
-    # loop do
-    #  options
-    #  print "Input: "
-    #  case gets.chomp
-    #  when "1"
-    #  when "2"
-    #  when "3"
-    #    start = gets.chomp
-    #    finish = gets.chomp
-    #    start_staion = nil
-    #    finish_staion = nil
-    #    @stations.each do |s|
-    #      s.name.upcase == start
-    #    end
-    #    start_station = @sta
-    #    take_train()
-    #  end
-    # end
-    # take_train(@stations.first, @stations.last, 0.5)
+    Display.draw("Welcome to the London Underground.")
+    sleep(0.5)
+    loop do
+      options
+      Display.newline
+      input
+    end
   end
 
   def options
-    print_string_at_speed("1. Top up oyster", 2)
-    print_string_at_speed("2. Check balance", 2)
-    print_string_at_speed("3. Take train", 2)
+    gets.chomp
+    Display.newline
+    Display.draw("Here are your options:")
+    Display.draw_list(
+      ["1. Top up oyster",
+       "2. Check balance",
+       "3. Show map",
+       "4. Take train",
+       "5. Quit"]
+    )
+  end
+
+  def input
+    case Display.prompt("Input: ")
+    when "1" then top_up
+    when "2" then balance
+    when "3" then stations
+    when "4" then train_journey
+    when "5" then exit
+    end
+  end
+
+  def top_up
+    Display.newline
+    @card.top_up(Display.prompt("Top up amount: ").to_i)
+    balance
+  end
+
+  def balance
+    Display.newline
+    Display.puts("Your balance is currently £#{@card.balance}")
   end
 
   def stations
-    puts "All Stations:"
-    @stations.each { |s| puts "#{s.name} — Zone #{s.zone}" }
+    Display.newline
+    Display.draw("All Stations:")
+    @stations.each { |s| Display.draw("#{s.name} — Zone #{s.zone}") }
   end
 
-  def take_train(start_station, end_station, speed)
-    journey_length = 30
-    character = '(˳˳_˳˳)'
-    journey_length.times do |n|
-      print "\r"
-      print "[#{start_station.name}]#{'-' * n}#{character}#{'-' * (journey_length - n - 1)}[#{end_station.name}]"
-      sleep(speed)
+  def train_journey
+    a = search_stations(Display.prompt("Start at: "))
+    if a.is_a?(String)
+      Display.puts("No station with name '#{a}' found.")
+      return
     end
-    puts
-    puts "Arrived at #{end_station.name}"
+    b = search_stations(Display.prompt("End at: "))
+    if b.is_a?(String)
+      Display.puts("No station with name '#{b}' found.")
+      return
+    end
+    Display.animate_train(a.name, b.name, 20)
+    Display.newline
+    Display.draw("Arrived at #{b.name}")
   end
 
-  def print_string_at_speed(string, wait)
-    string.length.times do |n|
-      print "\r"
-      print string.slice(0..n)
-      sleep(wait / 10)
+  def search_stations(input)
+    @stations.each do |s|
+      return s if s.name.downcase.start_with?(input.downcase)
     end
-    puts
+    input
   end
 end
 
-interface = Interface.new
-interface.run
+Interface.new.run
