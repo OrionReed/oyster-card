@@ -25,10 +25,15 @@ class App
     noecho # dont echo all input straight away
     @card = OysterCard.new
     @main_window = Curses::Window.new(HEIGHT, WIDTH, Curses.lines / 2 - HEIGHT / 2, Curses.cols / 2 - WIDTH / 2)
-    @input_window = Curses::Window.new(5, WIDTH, (Curses.lines / 2 - HEIGHT / 2) + HEIGHT, Curses.cols / 2 - WIDTH / 2)
+    @input_window = Curses::Window.new(3, WIDTH, (Curses.lines / 2 - HEIGHT / 2) + HEIGHT, Curses.cols / 2 - WIDTH / 2)
   end
 
   def run # main flow
+    startup
+    main_loop
+  end
+
+  def startup
     # show welcome window
     empty_window(@main_window)
     # show welcome message
@@ -36,116 +41,106 @@ class App
     sleep(0.1)
     # show a loading bar below welcome message
     animate_lines(['O', '◯', 'o', '•', '‘', '˚', '˙', '', ''], false)
-    animate_lines([' '], true)
-    sleep(0.1)
-    # clears window
+    # animate_lines([' '], true)
     empty_window(@main_window)
+  end
 
-    # show options window with selection (this is the main loop)
-    loop do
-      @main_window.attrset(A_NORMAL)
-      empty_window(@main_window)
-      draw_title("Options (Use W/S to move, D to select)")
-      (option = draw_options(OPTIONS))
-      case option
-
-      # 1. View Balance
-      when :balance
-        empty_window(@main_window)
-        draw_title('Current Balance')
-        draw_message("Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
-        sleep(13)
-      # 2. Top Up
-      when :topup
-        # 1. Clears screen, shows current balance
-        empty_window(@main_window)
-        draw_title('Please Enter Top-Up Amount')
-        draw_balance
-        # 2. Asks for input 'how much?'
-        1.times do
-          case (value = try_top_up)
-          # Shows error with (y/n) input option if invalid (amount or invalid characters)
-          when nil # invalid characters
-            #        -  Try again if yes else clear and return to options screen
-            redo if try_again?('Invalid Input: Please enter only numbers')
-          when Numeric
-            if value > OysterCard::MAX_BALANCE
-              redo if try_again?('Invalid Amount: Max balance of £90 exceeded')
-              break
-            end
-            #        Tops up card
-            #        - Shows new balance, waits, then clears and returns to options screen
-            @card.top_up(value)
-            draw_balance
-          end
-        end
-
-        #     #   3. Show Journey History
-        #   when :history
-        #     empty_window(@main_window)(@main_window)
-        #     draw_title(@main_window, 'Journey History')
-        #     #     1. Shows list of journeys
-        #     #        Station names, journey costs, and distances
-        #     draw_journeys(@main_window)
-
-        #     #   4. Start Train Journey
-        #   when :start then break
-        #     #     1. Shows list of stations with selector
-        #     #     2. After selecting one, shows it in new window
-        #     #     3. After selecting second, shows it in new window
-        #     #        1. Shows distance and cost of journey
-        #     #        2. Asks if user wants to return to options or start journey
-        #     #        - Returns to options menu if yes
-        #     #        3. Shows 3-line train animation in new window
-        #     #        - Shows string moving between two station names
-        #     #        - Shows distance travelled and percentage complete (considering journey distance)
-        #     #        - Shows smoke as series of animated unicode chars ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', ''] starting from train position and staying at same position
-        #     #          This can be done by adding index of train position to a hash,
-        #     #          then each frame, go through each position in smoke string and check if that index exists in the hash
-        #     #          if it does, set the current character to current train index - matched index, if it's out of range it means the smoke has cleared so print nothing
-        #     #        4. Listens for hidden message
-        #     #        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
-        #     #        - Waits until character hits edge then returns to options
-        #     #        5. Shows 'Journey complete' message then updates log and balance and returns to options
-
-        #     #   (5 Maybe). Show Map
-        #   when :map then break
-        #     #     1. Shows nice rendering of stations, maybe just a list, or something more interesting if I have time
-
-        #     #   6. Quit
-        #   when :quit then break
-        #     #      Shows goodbye message
-        #     empty_window(@main_window)(@main_window)
-        #     draw_title(@main_window, 'Goodbye!')
-        #     sleep 1
-        #     #      Quits
-        #     close_screen
-        #     exit
-      end
+  def main_loop
+    @main_window.attrset(A_NORMAL)
+    empty_window(@main_window)
+    draw_title("Options (Use W/S to move, D to select)")
+    option = draw_options(OPTIONS)
+    case option
+    when :balance then balance
+    when :topup then top_up
+    when :start then start
+    when :quit then quit
     end
+  end
+
+  ############## OPTIONS ##############
+
+  def balance
+    empty_window(@main_window)
+    draw_title('Current Balance')
+    draw_message("Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
+    sleep(2)
+    main_loop
+  end
+
+  def top_up
+    # 1. Clears screen, shows current balance
+    1.times do
+      empty_window(@main_window)
+      draw_title('Please Enter Top-Up Amount')
+      draw_message("Account currently has £#{@card.balance}")
+      # 2. Asks for input 'how much?'
+      begin
+        value = prompt_value("Enter Amount")
+      rescue
+        draw_message("RESCUED!!!")
+        sleep(2)
+        redo if try_again?('Invalid Amount: Max balance of £90 exceeded')
+      end
+      if value.nil?
+        redo if try_again?('Invalid Input, please try again')
+      end
+      #        Tops up card
+      hide_window(@input_window)
+      @card.top_up(value)
+      empty_window(@main_window)
+      draw_message("Account now has £#{@card.balance}")
+      sleep(2)
+    end
+    main_loop
+  end
+
+  def history
+  end
+
+  def start
+    #     1. Shows list of stations with selector
+    #     2. After selecting one, shows it in new window
+    #     3. After selecting second, shows it in new window
+    #        1. Shows distance and cost of journey
+    #        2. Asks if user wants to return to options or start journey
+    #        - Returns to options menu if yes
+    #        3. Shows 3-line train animation in new window
+    #        - Shows string moving between two station names
+    #        - Shows distance travelled and percentage complete (considering journey distance)
+    #        - Shows smoke as series of animated unicode chars ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', ''] starting from train position and staying at same position
+    #          This can be done by adding index of train position to a hash,
+    #          then each frame, go through each position in smoke string and check if that index exists in the hash
+    #          if it does, set the current character to current train index - matched index, if it's out of range it means the smoke has cleared so print nothing
+    #        4. Listens for hidden message
+    #        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
+    #        - Waits until character hits edge then returns to options
+    #        5. Shows 'Journey complete' message then updates log and balance and returns to options
+  end
+
+  def quit
+    empty_window(@main_window)
+    draw_message('Goodbye!')
+    sleep(1)
     close_screen
     exit
   end
 
-  #   begin # draw input
-  #     empty_window(@main_window)(@win3)
-  #     @win3.setpos(@win3.maxy / 2, 1)
-  #     @win3.addstr("Input: ")
-  #     curs_set(1)
-  #     @win3.refresh
-  #     echo
-  #     @input = @win3.getstr
-  #     noecho
-  #     curs_set(0)
-  #     sleep(0.1)
-  #   end
-  #   begin # draw output window
-  #     empty_window(@main_window)(@win4)
-  #     @win4.setpos(@win4.maxy / 2, 1)
-  #     @win4.addstr("You have input: #{@input}")
-  #     @win4.refresh
-  #     sleep(2)
-  #   end
+  ############## UTILITY METHODS ##############
+
+  def prompt_value(prompt)
+    empty_window(@input_window)
+    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.addstr("#{prompt}: ")
+    curs_set(1)
+    echo
+    @input_window.refresh
+    value = @input_window.getstr
+    noecho
+    curs_set(0)
+    hide_window(@input_window)
+    value.to_i
+  end
 
   def animate_lines(chars, cycle = false)
     offset = 2
@@ -174,12 +169,13 @@ class App
     end
   end
 
-  def draw_message(message)
+  def draw_message(message, style = A_STANDOUT)
     padding = 8
     @main_window.setpos(@main_window.maxy / 2, 8)
-    @main_window.attrset(A_STANDOUT)
+    @main_window.attrset(style)
     @main_window.addstr(message.center(@main_window.maxx - (padding * 2)))
     @main_window.refresh
+    @main_window.attrset(A_NORMAL)
   end
 
   def draw_options(options)
@@ -208,9 +204,8 @@ class App
     @main_window.refresh
   end
 
-  # pure window stuff that can maybe be a module?
-
   def empty_window(window)
+    window.attrset(A_NORMAL)
     window.clear
     window.box("|", "-")
     window.setpos(1, 1)
@@ -221,6 +216,11 @@ class App
     @main_window.setpos(1, 2)
     @main_window.addstr(" #{string} ".center(@main_window.maxx - 4, '—'))
     @main_window.refresh
+  end
+
+  def hide_window(window)
+    window.clear
+    window.refresh
   end
 end
 
