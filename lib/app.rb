@@ -5,8 +5,10 @@ require_relative 'oyster_card'
 include(Curses)
 
 class App
-  LOAD_SPEED = 0.002
+  LOAD_SPEED = 0.001
   STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }
+  HEIGHT = 26
+  WIDTH = 100
   OPTIONS = [
     { balance: 'View Balance' },
     { topup: 'Top Up' },
@@ -22,10 +24,8 @@ class App
     curs_set(0) # hide cursor
     noecho # dont echo all input straight away
     @card = OysterCard.new
-    @main_window = Curses::Window.new(Curses.lines / 2 - 1, Curses.cols / 2 - 1, 0, 0)
-    # @win2 = Curses::Window.new(3, Curses.cols / 2 - 1, Curses.lines / 2, 0)
-    # @win3 = Curses::Window.new(3, Curses.cols / 2 - 1, Curses.lines / 2, 0)
-    # @win4 = Curses::Window.new(3, Curses.cols / 2 - 1, (Curses.lines / 2) + 3, 0)
+    @main_window = Curses::Window.new(HEIGHT, WIDTH, Curses.lines / 2 - HEIGHT / 2, Curses.cols / 2 - WIDTH / 2)
+    @input_window = Curses::Window.new(5, WIDTH, (Curses.lines / 2 - HEIGHT / 2) + HEIGHT, Curses.cols / 2 - WIDTH / 2)
   end
 
   def run # main flow
@@ -35,69 +35,52 @@ class App
     draw_title(@main_window, 'Welcome to the Underground')
     sleep(0.1)
     # show a loading bar below welcome message
-    boot_sequence(@main_window, 2, '#')
-    boot_sequence(@main_window, 3, '*')
-    boot_sequence(@main_window, 4, '$')
-    boot_sequence(@main_window, 5, '#')
-    boot_sequence(@main_window, 6, '*')
-    boot_sequence(@main_window, 7, '$')
-    boot_sequence(@main_window, 8, '#')
-    boot_sequence(@main_window, 9, '*')
-    boot_sequence(@main_window, 10, '$')
-    boot_sequence(@main_window, 11, '#')
-    boot_sequence(@main_window, 12, '*')
-    boot_sequence(@main_window, 2, ' ')
-    boot_sequence(@main_window, 3, ' ')
-    boot_sequence(@main_window, 4, ' ')
-    boot_sequence(@main_window, 5, ' ')
-    boot_sequence(@main_window, 6, ' ')
-    boot_sequence(@main_window, 7, ' ')
-    boot_sequence(@main_window, 8, ' ')
-    boot_sequence(@main_window, 9, ' ')
-    boot_sequence(@main_window, 10, ' ')
-    boot_sequence(@main_window, 11, ' ')
-    boot_sequence(@main_window, 12, ' ')
+    # animate_lines(@main_window, ['#', '$', '*'], true)
+    # animate_lines(@main_window, [' '], true)
+    animate_lines(@main_window, ['O', '◯', 'o', '•', '‘', '˚', '˙', '', ''], false)
+    animate_lines(@main_window, [' '], true)
     sleep(0.1)
     # clears window
     draw_empty_window(@main_window)
+
     # show options window with selection (this is the main loop)
-    draw_title(@main_window, "Options (Use W/S to move, D to select)")
     loop do
+      @main_window.attrset(A_NORMAL)
+      draw_empty_window(@main_window)
+      draw_title(@main_window, "Options (Use W/S to move, D to select)")
       (option = draw_options(@main_window, OPTIONS))
       case option
 
-      #   #   1. View Balance
+      # 1. View Balance
       when :balance
         draw_empty_window(@main_window)
-        draw_title(@main_window, 'SUCCESS!')
-        sleep(2)
-        #     draw_empty_window(@main_window)
-        #     draw_balance(@main_window)
-
-        #     #   2. Top Up
-        #   when :topup
-        #     #     1. Clears screen, shows current balance
-        #     draw_empty_window(@main_window)
-        #     draw_balance(@main_window)
-        #     #     2. Asks for input 'how much?'
-        #     1.times do
-        #       case (value = try_top_up(@main_window))
-        #     #        If input is invalid
-        #     #        Shows error with (y/n) input option if invalid (amount or invalid characters)
-        #       when nil # invalid characters
-        #         #        -  Try again if yes else clear and return to options screen
-        #         redo if try_again?(@main_window, 'Invalid Input: Please enter only numbers')
-        #       when Numeric
-        #         if value > OysterCard::MAX_BALANCE
-        #           redo if try_again?(@main_window, 'Invalid Amount: Max balance of £90 exceeded')
-        #           break
-        #         end
-        #       #        Tops up card
-        #       #        - Shows new balance, waits, then clears and returns to options screen
-        #       @card.top_up(value)
-        #       draw_balance(@main_window)
-        #       end
-        #     end
+        draw_title(@main_window, 'Current Balance')
+        draw_message("Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
+        sleep(13)
+      # 2. Top Up
+      when :topup
+        # 1. Clears screen, shows current balance
+        draw_empty_window(@main_window)
+        draw_title(@main_window, 'Please Enter Top-Up Amount')
+        draw_balance(@main_window)
+        # 2. Asks for input 'how much?'
+        1.times do
+          case (value = try_top_up(@input_window))
+          # Shows error with (y/n) input option if invalid (amount or invalid characters)
+          when nil # invalid characters
+            #        -  Try again if yes else clear and return to options screen
+            redo if try_again?(@input_window, 'Invalid Input: Please enter only numbers')
+          when Numeric
+            if value > OysterCard::MAX_BALANCE
+              redo if try_again?(@input_window, 'Invalid Amount: Max balance of £90 exceeded')
+              break
+            end
+            #        Tops up card
+            #        - Shows new balance, waits, then clears and returns to options screen
+            @card.top_up(value)
+            draw_balance(@main_window)
+          end
+        end
 
         #     #   3. Show Journey History
         #   when :history
@@ -230,15 +213,39 @@ class App
   # end
 
   #############################################################################################################################
-
-  def boot_sequence(window, y_pos, char)
-    window.setpos(y_pos, 2)
-    2.upto(window.maxx - 3) do |i|
-      window.setpos(y_pos, i)
-      window << char
-      window.refresh
-      sleep LOAD_SPEED
+  def animate_lines(window, chars, cycle = false)
+    offset = 2
+    if cycle
+      counter = offset
+      chars.cycle do |ch|
+        return if counter > window.maxy - 2
+        2.upto(window.maxx - 3) do |i|
+          window.setpos(counter, i)
+          window << ch
+          window.refresh
+          sleep LOAD_SPEED
+        end
+        counter += 1
+      end
+    else
+      chars.length.times do |line|
+        2.upto(window.maxx - 3) do |i|
+          window.setpos(line + offset, i)
+          char = chars[line].nil? ? ' ' : chars[line]
+          window << char
+          window.refresh
+          sleep LOAD_SPEED
+        end
+      end
     end
+  end
+
+  def draw_message(message)
+    padding = 8
+    @main_window.setpos(@main_window.maxy / 2, 8)
+    @main_window.attrset(A_STANDOUT)
+    @main_window.addstr(message.center(@main_window.maxx - (padding * 2)))
+    @main_window.refresh
   end
 
   def draw_options(window, options)
