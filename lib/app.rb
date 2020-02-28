@@ -2,6 +2,7 @@ require 'curses'
 require 'csv'
 require_relative 'station'
 require_relative 'oyster_card'
+require_relative 'oyster_card'
 include(Curses)
 
 class App
@@ -9,12 +10,15 @@ class App
   STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }
   HEIGHT = 26
   WIDTH = 100
+  TRAIN = '[˳˳_˳˳]'
+  SMOKE = ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', '']
+  TRAIN_TIME = 0.1
   OPTIONS = [
     { balance: 'View Balance' },
     { topup: 'Top Up' },
     { history: 'Show Journey History' },
     { start: 'Start Train Journey' },
-    { map: 'Show Map' },
+    { map: 'Show Stations' },
     { quit: 'Quit' },
   ]
 
@@ -53,7 +57,9 @@ class App
     case option
     when :balance then balance
     when :topup then top_up
+    when :history then history
     when :start then start
+    when :map then map
     when :quit then quit
     end
   end
@@ -78,7 +84,7 @@ class App
       # 2. Asks for input 'how much?'
       value = prompt_value("Enter Amount")
       if value.nil?
-        redo if try_again?('Invalid Input, only use valid numbers')
+        redo if try_again?('Invalid Input, only use valid numbers', "Try again? (y/n): ")
         break
       end
       break unless @card.balance + value > OysterCard::MAX_BALANCE
@@ -95,26 +101,73 @@ class App
   end
 
   def history
+    empty_window(@main_window)
+    draw_title("Journey History")
+    if @card.journey_log.history.empty?
+      draw_message("No history yet", A_STANDOUT)
+      main_loop if try_again?(nil, "Return to options? (y/n): ")
+    end
+    history = @card.journey_log.history.map { |s| "#{s.entry_station.name} to #{s.exit_station.name}" }
+    animate_list(history)
+    main_loop if try_again?(nil, "Return to options? (y/n): ")
   end
 
   def start
     #     1. Shows list of stations with selector
-    #     2. After selecting one, shows it in new window
-    #     3. After selecting second, shows it in new window
-    #        1. Shows distance and cost of journey
-    #        2. Asks if user wants to return to options or start journey
-    #        - Returns to options menu if yes
-    #        3. Shows 3-line train animation in new window
-    #        - Shows string moving between two station names
-    #        - Shows distance travelled and percentage complete (considering journey distance)
-    #        - Shows smoke as series of animated unicode chars ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', ''] starting from train position and staying at same position
-    #          This can be done by adding index of train position to a hash,
-    #          then each frame, go through each position in smoke string and check if that index exists in the hash
-    #          if it does, set the current character to current train index - matched index, if it's out of range it means the smoke has cleared so print nothing
+    empty_window(@main_window)
+    draw_title('Select start and end stations')
+    option1 = draw_options(STATIONS.map { |s| "#{s.name} - zone #{s.zone}" })
+    empty_window(@input_window)
+    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.addstr("[#{STATIONS[option1].name}]")
+    @input_window.refresh
+    option2 = draw_options(STATIONS.map { |s| "#{s.name} - zone #{s.zone}" })
+    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.addstr("[#{STATIONS[option2].name}]".rjust(WIDTH - 4))
+    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.addstr("[#{STATIONS[option1].name}]")
+    @input_window.refresh
+    sleep(1)
+    hide_window(@input_window)
+    @main_window.clear
+    @main_window.refresh
+    @main_window.setpos((@main_window.maxy / 2) + 1, 2)
+    @main_window.addstr("[#{STATIONS[option1].name}]#{'=' * (WIDTH - STATIONS[option1].name.length - STATIONS[option1].name.length - 8)}[#{STATIONS[option2].name}]")
+    @main_window.refresh
+    sleep(1)
+    smoke = {}
+    pos = 0
+    loop do
+      @main_window.setpos((@main_window.maxy / 2), 2)
+      @main_window.addstr("-" * (WIDTH - 4))
+      @main_window.setpos((@main_window.maxy / 2), pos + 1)
+      @main_window.addstr(TRAIN)
+      pos += 1
+      smoke[pos] = pos if [false, false, true].sample
+      @main_window.setpos((@main_window.maxy / 2) - 1, 2)
+      @main_window.addstr(" " * (WIDTH - 4))
+      (WIDTH - 4).times.with_index do |s, i|
+        @main_window.setpos((@main_window.maxy / 2) - 1, s)
+        unless smoke[pos - i].nil?
+          @main_window.addstr(SMOKE[pos - i])
+        end
+      end
+      @main_window.refresh
+      sleep TRAIN_TIME
+      break if pos > WIDTH - 2
+    end
     #        4. Listens for hidden message
     #        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
     #        - Waits until character hits edge then returns to options
     #        5. Shows 'Journey complete' message then updates log and balance and returns to options
+  end
+
+  def map
+    empty_window(@main_window)
+    draw_title("All Stations")
+    stations_list = STATIONS.map { |s| "#{s.name} - Zone #{s.zone}" }
+    animate_list(stations_list)
+    main_loop if try_again?(nil, "Return to options? (y/n): ")
   end
 
   def quit
@@ -142,11 +195,11 @@ class App
     nil
   end
 
-  def try_again?(prompt)
+  def try_again?(message, prompt)
     empty_window(@input_window)
-    draw_message(prompt)
+    draw_message(message) unless message.nil?
     @input_window.setpos(@input_window.maxy / 2, 2)
-    @input_window.addstr("Try again? (y/n): ")
+    @input_window.addstr(prompt)
     curs_set(1)
     echo
     @input_window.refresh
@@ -185,6 +238,17 @@ class App
     end
   end
 
+  def animate_list(arr)
+    arr.each.with_index do |s, i|
+      @main_window.setpos(i + 3, 2) # set position to current option
+      @main_window.addstr("#{i + 1}. #{s}") # write the name
+      @main_window.refresh
+      sleep 0.3
+      break if i >= HEIGHT - 4
+    end
+    @main_window.refresh
+  end
+
   def draw_message(message, style = A_STANDOUT)
     padding = 8
     @main_window.setpos(@main_window.maxy / 2, 8)
@@ -208,6 +272,7 @@ class App
       position = 0 if position >= options.length
       draw_options_window(options, position)
     end
+    return position unless options.first.is_a?(Hash)
     options[position].keys.first
   end
 
@@ -215,7 +280,8 @@ class App
     options.each.with_index do |s, i|
       @main_window.setpos(i + 3, 2) # set position to current option
       @main_window.attrset(i == selection_index ? A_STANDOUT : A_NORMAL) # highlight if it matches selection index
-      @main_window.addstr("#{i + 1}. #{s.values.first}") # write the name
+      if s.is_a?(Hash) then @main_window.addstr("#{i + 1}. #{s.values.first}"); next end
+      @main_window.addstr(s)
     end
     @main_window.refresh
   end
