@@ -70,28 +70,27 @@ class App
 
   def top_up
     # 1. Clears screen, shows current balance
+    value = 0
     1.times do
       empty_window(@main_window)
       draw_title('Please Enter Top-Up Amount')
       draw_message("Account currently has £#{@card.balance}")
       # 2. Asks for input 'how much?'
-      begin
-        value = prompt_value("Enter Amount")
-      rescue
-        draw_message("RESCUED!!!")
-        sleep(2)
-        redo if try_again?('Invalid Amount: Max balance of £90 exceeded')
-      end
+      value = prompt_value("Enter Amount")
       if value.nil?
-        redo if try_again?('Invalid Input, please try again')
+        redo if try_again?('Invalid Input, only use valid numbers')
+        break
       end
-      #        Tops up card
-      hide_window(@input_window)
-      @card.top_up(value)
-      empty_window(@main_window)
-      draw_message("Account now has £#{@card.balance}")
+      break unless @card.balance + value > OysterCard::MAX_BALANCE
+      draw_title("Max balance reached, adding £#{OysterCard::MAX_BALANCE - @card.balance}")
       sleep(2)
+      @card.top_up(OysterCard::MAX_BALANCE - @card.balance)
     end
+    hide_window(@input_window)
+    empty_window(@main_window)
+    draw_title('Balance')
+    draw_message("Account now has £#{@card.balance}")
+    sleep(2)
     main_loop
   end
 
@@ -139,7 +138,24 @@ class App
     noecho
     curs_set(0)
     hide_window(@input_window)
-    value.to_i
+    return value.to_f if value == value.to_f.to_s || value == value.to_i.to_s
+    nil
+  end
+
+  def try_again?(prompt)
+    empty_window(@input_window)
+    draw_message(prompt)
+    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.addstr("Try again? (y/n): ")
+    curs_set(1)
+    echo
+    @input_window.refresh
+    value = @input_window.getch
+    noecho
+    curs_set(0)
+    hide_window(@input_window)
+    return true if value.downcase == 'y'
+    return false if value.downcase == 'n'
   end
 
   def animate_lines(chars, cycle = false)
