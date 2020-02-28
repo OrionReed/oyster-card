@@ -75,7 +75,6 @@ class App
   end
 
   def top_up
-    # 1. Clears screen, shows current balance
     value = 0
     1.times do
       empty_window(@main_window)
@@ -87,10 +86,12 @@ class App
         redo if try_again?('Invalid Input, only use valid numbers', "Try again? (y/n): ")
         break
       end
-      break unless @card.balance + value > OysterCard::MAX_BALANCE
-      draw_title("Max balance reached, adding £#{OysterCard::MAX_BALANCE - @card.balance}")
-      sleep(2)
-      @card.top_up(OysterCard::MAX_BALANCE - @card.balance)
+      if @card.balance + value > OysterCard::MAX_BALANCE
+        draw_title("Max balance reached, adding £#{OysterCard::MAX_BALANCE - @card.balance}")
+        sleep(2)
+        @card.top_up(OysterCard::MAX_BALANCE - @card.balance)
+      end
+      @card.top_up(value)
     end
     hide_window(@input_window)
     empty_window(@main_window)
@@ -107,7 +108,7 @@ class App
       draw_message("No history yet", A_STANDOUT)
       main_loop if try_again?(nil, "Return to options? (y/n): ")
     end
-    history = @card.journey_log.history.map { |s| "#{s.entry_station.name} to #{s.exit_station.name}" }
+    history = @card.journey_log.history.map { |s| "#{s.entry_station.name} to #{s.exit_station.name} — £#{s.fare}, #{(s.entry_station.zone - s.exit_station.zone).abs + 1 * 3}km" }
     animate_list(history)
     main_loop if try_again?(nil, "Return to options? (y/n): ")
   end
@@ -139,7 +140,7 @@ class App
     pos = 0
     loop do
       @main_window.setpos((@main_window.maxy / 2), 2)
-      @main_window.addstr("-" * (WIDTH - 4))
+      @main_window.addstr(" " * (WIDTH - 4))
       @main_window.setpos((@main_window.maxy / 2), pos + 1)
       @main_window.addstr(TRAIN)
       pos += 1
@@ -160,6 +161,9 @@ class App
     #        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
     #        - Waits until character hits edge then returns to options
     #        5. Shows 'Journey complete' message then updates log and balance and returns to options
+    @card.journey_log.start(STATIONS[option1])
+    @card.journey_log.finish(STATIONS[option2])
+    main_loop
   end
 
   def map
