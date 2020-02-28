@@ -30,61 +30,59 @@ class App
 
   def run # main flow
     # show welcome window
-    draw_empty_window(@main_window)
+    empty_window(@main_window)
     # show welcome message
-    draw_title(@main_window, 'Welcome to the Underground')
+    draw_title('Welcome to the Underground')
     sleep(0.1)
     # show a loading bar below welcome message
-    # animate_lines(@main_window, ['#', '$', '*'], true)
-    # animate_lines(@main_window, [' '], true)
-    animate_lines(@main_window, ['O', '◯', 'o', '•', '‘', '˚', '˙', '', ''], false)
-    animate_lines(@main_window, [' '], true)
+    animate_lines(['O', '◯', 'o', '•', '‘', '˚', '˙', '', ''], false)
+    animate_lines([' '], true)
     sleep(0.1)
     # clears window
-    draw_empty_window(@main_window)
+    empty_window(@main_window)
 
     # show options window with selection (this is the main loop)
     loop do
       @main_window.attrset(A_NORMAL)
-      draw_empty_window(@main_window)
-      draw_title(@main_window, "Options (Use W/S to move, D to select)")
-      (option = draw_options(@main_window, OPTIONS))
+      empty_window(@main_window)
+      draw_title("Options (Use W/S to move, D to select)")
+      (option = draw_options(OPTIONS))
       case option
 
       # 1. View Balance
       when :balance
-        draw_empty_window(@main_window)
-        draw_title(@main_window, 'Current Balance')
+        empty_window(@main_window)
+        draw_title('Current Balance')
         draw_message("Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
         sleep(13)
       # 2. Top Up
       when :topup
         # 1. Clears screen, shows current balance
-        draw_empty_window(@main_window)
-        draw_title(@main_window, 'Please Enter Top-Up Amount')
-        draw_balance(@main_window)
+        empty_window(@main_window)
+        draw_title('Please Enter Top-Up Amount')
+        draw_balance
         # 2. Asks for input 'how much?'
         1.times do
-          case (value = try_top_up(@input_window))
+          case (value = try_top_up)
           # Shows error with (y/n) input option if invalid (amount or invalid characters)
           when nil # invalid characters
             #        -  Try again if yes else clear and return to options screen
-            redo if try_again?(@input_window, 'Invalid Input: Please enter only numbers')
+            redo if try_again?('Invalid Input: Please enter only numbers')
           when Numeric
             if value > OysterCard::MAX_BALANCE
-              redo if try_again?(@input_window, 'Invalid Amount: Max balance of £90 exceeded')
+              redo if try_again?('Invalid Amount: Max balance of £90 exceeded')
               break
             end
             #        Tops up card
             #        - Shows new balance, waits, then clears and returns to options screen
             @card.top_up(value)
-            draw_balance(@main_window)
+            draw_balance
           end
         end
 
         #     #   3. Show Journey History
         #   when :history
-        #     draw_empty_window(@main_window)
+        #     empty_window(@main_window)(@main_window)
         #     draw_title(@main_window, 'Journey History')
         #     #     1. Shows list of journeys
         #     #        Station names, journey costs, and distances
@@ -117,7 +115,7 @@ class App
         #     #   6. Quit
         #   when :quit then break
         #     #      Shows goodbye message
-        #     draw_empty_window(@main_window)
+        #     empty_window(@main_window)(@main_window)
         #     draw_title(@main_window, 'Goodbye!')
         #     sleep 1
         #     #      Quits
@@ -129,34 +127,8 @@ class App
     exit
   end
 
-  #   begin
-  #     draw_empty_window(@main_window)
-  #     @main_window.addstr("— Welcome to the underground —".center(@main_window.maxx - 2))
-  #     ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', ''].cycle do |s|
-  #       draw_empty_window(@main_window)
-  #       @main_window.setpos(1, 2)
-  #       @main_window.addstr(s)
-  #       @main_window.refresh
-  #       sleep(0.3)
-  #     end
-  #     draw_menu_window(@main_window, nil)
-  #     menu(@main_window)
-  #   end
-  #   begin # draw loading window
-  #     draw_empty_window(@win2)
-  #     2.upto(@win2.maxx - 3) do |i|
-  #       @win2.setpos(@win2.maxy / 2, i)
-  #       @win2 << "*"
-  #       @win2.refresh
-  #       sleep 0.015
-  #     end
-  #   rescue
-  #     Curses.close_screen
-  #   end
-  #   update_test
-  #   sleep(2)
   #   begin # draw input
-  #     draw_empty_window(@win3)
+  #     empty_window(@main_window)(@win3)
   #     @win3.setpos(@win3.maxy / 2, 1)
   #     @win3.addstr("Input: ")
   #     curs_set(1)
@@ -168,72 +140,34 @@ class App
   #     sleep(0.1)
   #   end
   #   begin # draw output window
-  #     draw_empty_window(@win4)
+  #     empty_window(@main_window)(@win4)
   #     @win4.setpos(@win4.maxy / 2, 1)
   #     @win4.addstr("You have input: #{@input}")
   #     @win4.refresh
   #     sleep(2)
   #   end
-  # rescue
-  #   close_screen
-  # end
 
-  #############################################################################################################################
-
-  # def update_test
-  #   # update first window with options
-  #   @main_window.setpos(3, 1)
-  #   @main_window.addstr("[ OPTIONS ]".center(@main_window.maxx - 2, '-'))
-  #   @main_window.refresh
-  #   sleep(0.5)
-  # end
-
-  # def draw_menu_window(window, selection_index = nil)
-  #   @stations.each.with_index do |s, i|
-  #     window.setpos(i + 1, 1) # set position to current station
-  #     window.attrset(i == selection_index ? A_STANDOUT : A_NORMAL) # highlight if it matches selection index
-  #     window.addstr(s.name) # write the name of the station
-  #   end
-  # end
-
-  # def menu(window)
-  #   position = -1
-  #   while (ch = window.getch)
-  #     case ch
-  #     when 'w' then position -= 1
-  #     when 's' then position += 1
-  #     when 'd' then break
-  #     when 'q' then exit
-  #     end
-  #     position = @stations.length - 1 if position < 0
-  #     position = 0 if position >= @stations.length
-  #     draw_menu_window(window, position)
-  #   end
-  #   position
-  # end
-
-  #############################################################################################################################
-  def animate_lines(window, chars, cycle = false)
+  def animate_lines(chars, cycle = false)
     offset = 2
     if cycle
       counter = offset
       chars.cycle do |ch|
-        return if counter > window.maxy - 2
-        2.upto(window.maxx - 3) do |i|
-          window.setpos(counter, i)
-          window << ch
-          window.refresh
+        return if counter > @main_window.maxy - 2
+        2.upto(@main_window.maxx - 3) do |i|
+          @main_window.setpos(counter, i)
+          @main_window << ch
+          @main_window.refresh
           sleep LOAD_SPEED
         end
         counter += 1
       end
     else
       chars.length.times do |line|
-        2.upto(window.maxx - 3) do |i|
-          window.setpos(line + offset, i)
+        2.upto(@main_window.maxx - 3) do |i|
+          @main_window.setpos(line + offset, i)
           char = chars[line].nil? ? ' ' : chars[line]
-          window << char
-          window.refresh
+          @main_window << char
+          @main_window.refresh
           sleep LOAD_SPEED
         end
       end
@@ -248,10 +182,10 @@ class App
     @main_window.refresh
   end
 
-  def draw_options(window, options)
-    draw_options_window(window, options, nil)
+  def draw_options(options)
+    draw_options_window(options, nil)
     position = -1
-    while (ch = window.getch)
+    while (ch = @main_window.getch)
       case ch
       when 'w' then position -= 1
       when 's' then position += 1
@@ -260,119 +194,35 @@ class App
       end
       position = options.length - 1 if position < 0
       position = 0 if position >= options.length
-      draw_options_window(window, options, position)
+      draw_options_window(options, position)
     end
     options[position].keys.first
   end
 
-  def draw_options_window(window, options, selection_index)
+  def draw_options_window(options, selection_index)
     options.each.with_index do |s, i|
-      window.setpos(i + 3, 2) # set position to current option
-      window.attrset(i == selection_index ? A_STANDOUT : A_NORMAL) # highlight if it matches selection index
-      window.addstr("#{i + 1}. #{s.values.first}") # write the name
+      @main_window.setpos(i + 3, 2) # set position to current option
+      @main_window.attrset(i == selection_index ? A_STANDOUT : A_NORMAL) # highlight if it matches selection index
+      @main_window.addstr("#{i + 1}. #{s.values.first}") # write the name
     end
-    window.refresh
+    @main_window.refresh
   end
 
   # pure window stuff that can maybe be a module?
 
-  def draw_empty_window(window)
+  def empty_window(window)
     window.clear
     window.box("|", "-")
     window.setpos(1, 1)
     window.refresh
   end
 
-  def draw_title(window, string)
-    window.setpos(1, 2)
-    window.addstr(" #{string} ".center(window.maxx - 4, '—'))
-    window.refresh
+  def draw_title(string)
+    @main_window.setpos(1, 2)
+    @main_window.addstr(" #{string} ".center(@main_window.maxx - 4, '—'))
+    @main_window.refresh
   end
 end
 
 app = App.new
 app.run
-
-################# JUNK YARD #################
-
-# class Interface
-#   STATIONS_PATH = "./data/stations.csv"
-
-#   def initialize
-#     @stations = CSV.parse(File.read(STATIONS_PATH)).drop(1).map { |s| Station.new(s.first, s.last.to_i) }
-#     @card = OysterCard.new
-#   end
-
-#   def run
-#     Display.draw("Welcome to the London Underground.")
-#     sleep(0.5)
-#     loop do
-#       options
-#       Display.newline
-#       input
-#     end
-#   end
-
-#   def options
-#     gets.chomp
-#     Display.newline
-#     Display.draw("Here are your options:")
-#     Display.draw_list(
-#       ["1. Top up oyster",
-#        "2. Check balance",
-#        "3. Show map",
-#        "4. Take train",
-#        "5. Quit"]
-#     )
-#   end
-
-#   def input
-#     case Display.prompt("Input: ")
-#     when "1" then top_up
-#     when "2" then balance
-#     when "3" then stations
-#     when "4" then train_journey
-#     when "5" then exit
-#     end
-#   end
-
-#   def top_up
-#     Display.newline
-#     @card.top_up(Display.prompt("Top up amount: ").to_i)
-#     balance
-#   end
-
-#   def balance
-#     Display.newline
-#     Display.puts("Your balance is currently £#{@card.balance}")
-#   end
-
-#   def stations
-#     Display.newline
-#     Display.draw("All Stations:")
-#     @stations.each { |s| Display.draw("#{s.name} — Zone #{s.zone}") }
-#   end
-
-#   def train_journey
-#     a = search_stations(Display.prompt("Start at: "))
-#     if a.is_a?(String)
-#       Display.puts("No station with name '#{a}' found.")
-#       return
-#     end
-#     b = search_stations(Display.prompt("End at: "))
-#     if b.is_a?(String)
-#       Display.puts("No station with name '#{b}' found.")
-#       return
-#     end
-#     Display.animate_train(a.name, b.name, 20)
-#     Display.newline
-#     Display.draw("Arrived at #{b.name}")
-#   end
-
-#   def search_stations(input)
-#     @stations.each do |s|
-#       return s if s.name.downcase.start_with?(input.downcase)
-#     end
-#     input
-#   end
-#  #end

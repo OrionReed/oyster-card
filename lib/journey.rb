@@ -15,8 +15,6 @@ class Journey
   end
 
   def complete?
-    p(entry_station)
-    p(exit_station)
     !(entry_station.nil? || exit_station.nil?)
   end
 
