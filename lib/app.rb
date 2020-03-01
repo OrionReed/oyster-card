@@ -11,8 +11,8 @@ class App
   TEMPO = 89/240r
   # TEMPO = 0.196666667
   STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }
-  HEIGHT = 30
-  WIDTH = 110
+  HEIGHT = 26
+  WIDTH = 106
   TRAIN = '[ニニ]'
   SMOKE = ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', '']
   TRAIN_TIME = 0.1
@@ -27,15 +27,14 @@ class App
 
   def initialize
     init_screen
-    cbreak
-    stdscr.keypad = 1
     curs_set(0)
     noecho
     @card = OysterCard.new
     starty = (lines - HEIGHT) / 2
     startx = (cols - WIDTH) / 2
     @main = Window.new(HEIGHT, WIDTH, starty, startx)
-    @input_window = Curses::Window.new(3, WIDTH, (Curses.lines / 2 - HEIGHT / 2) + HEIGHT, Curses.cols / 2 - WIDTH / 2)
+    @main_border = Window.new(HEIGHT + 2, WIDTH + 4, starty - 1, startx - 2)
+    @input_window = Curses::Window.new(3, WIDTH + 4, (Curses.lines / 2 - HEIGHT / 2) + HEIGHT + 1, (Curses.cols / 2 - WIDTH / 2) - 2)
   end
 
   def run # main flow
@@ -44,13 +43,13 @@ class App
   end
 
   def startup
-    empty_window(@main)
+    empty_main
 
     animate_lines(['• # •'], TEMPO / 8, cycle: true, update_each_segment: true)
     messaage = 'Welcome to the Underground'
-    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, 1)
-    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, 0)
-    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, -1)
+    draw_message(' ' * (messaage.length + 3), A_NORMAL, :center, 1)
+    draw_message(' ' * (messaage.length + 3), A_NORMAL, :center, 0)
+    draw_message(' ' * (messaage.length + 3), A_NORMAL, :center, -1)
     draw_message('Welcome to the Underground', A_NORMAL)
     sleep(2)
     animate_lines(' ··•○•·· ', TEMPO / 4, cycle: true)
@@ -58,13 +57,13 @@ class App
     animate_lines('   ···   ', TEMPO / 4, cycle: true)
     animate_lines('    ·    ', TEMPO / 4, cycle: true)
 
-    empty_window(@main)
+    empty_main
   end
 
   def main_loop
     loop do
       @main.attrset(A_NORMAL)
-      empty_window(@main)
+      empty_main
       draw_title("Options (Use W/S to move, Enter to select)")
       option = draw_options(OPTIONS)
       case option
@@ -85,17 +84,18 @@ class App
   ############## OPTIONS ##############
 
   def balance
-    empty_window(@main)
+    empty_main
     draw_title('Current Balance')
     draw_message("Account has £#{format_balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
     wait_for_key("Press any key.")
   end
 
   def top_up
+    empty_window_with_title('Please Enter Top-Up Amount')
+    draw_message("Account currently has £#{format_balance}")
+    clear_input_window
     value = 0
     1.times do
-      empty_window_with_title('Please Enter Top-Up Amount')
-      draw_message("Account currently has £#{format_balance}")
       value = prompt_value("Enter Amount")
       if value.nil?
         draw_message('Invalid Input, only use valid numbers')
@@ -137,22 +137,23 @@ class App
     end
     empty_window_with_title('Select START and END stations')
     option1 = draw_options(STATIONS.map { |s| "#{s.name} - Z#{s.zone}" })
-    empty_window(@input_window)
-    @input_window.setpos(@input_window.maxy / 2, 2)
+    clear_input_window
+    @input_window.setpos(@input_window.maxy / 2, 1)
     @input_window.addstr("[#{STATIONS[option1].name}]")
     @input_window.refresh
     option2 = draw_options(STATIONS.map { |s| "#{s.name} - Z#{s.zone}" })
-    @input_window.setpos(@input_window.maxy / 2, 2)
-    @input_window.addstr("[#{STATIONS[option2].name}]".rjust(WIDTH - 4))
-    @input_window.setpos(@input_window.maxy / 2, 2)
+    @input_window.setpos(@input_window.maxy / 2, 1)
+    @input_window.addstr("[#{STATIONS[option2].name}]".rjust(WIDTH + 2))
+    @input_window.setpos(@input_window.maxy / 2, 1)
     @input_window.addstr("[#{STATIONS[option1].name}]")
     @input_window.refresh
     sleep(1)
     hide_window(@input_window)
+    hide_window(@main_border)
     @main.clear
     @main.refresh
     @main.setpos((@main.maxy / 2) + 1, 0)
-    @main.addstr("[#{STATIONS[option1].name}]#{'=' * (WIDTH - STATIONS[option1].name.length - STATIONS[option2].name.length - 4)}[#{STATIONS[option2].name}]".center(WIDTH))
+    @main.addstr("[#{STATIONS[option1].name}]#{'=' * (WIDTH - STATIONS[option1].name.length - 4 - STATIONS[option2].name.length)}[#{STATIONS[option2].name}]".center(WIDTH))
     @main.refresh
     sleep(1)
     @card.touch_in(STATIONS[option1])
@@ -171,7 +172,7 @@ class App
       @main.setpos((@main.maxy / 2) - 1, 0)
       @main.delch
       smoke_indeces.each do |i|
-        @main.setpos((@main.maxy / 2) - 1, i + TRAIN.length)
+        @main.setpos((@main.maxy / 2) - 1, i + TRAIN.length - 1)
         @main.addstr(" ")
         unless SMOKE[pos - i].nil?
           @main.addstr(SMOKE[pos - i])
@@ -179,7 +180,7 @@ class App
       end
       @main.refresh
       sleep TRAIN_TIME
-      if pos > WIDTH - 2 - TRAIN.length then sleep(0.5); break end
+      if pos > WIDTH - TRAIN.length - 2 then sleep(0.5); break end
     end
     @card.touch_out(STATIONS[option2])
   end
@@ -192,7 +193,7 @@ class App
   end
 
   def quit
-    empty_window(@main)
+    empty_main
     draw_message('Goodbye!')
     sleep(1)
     close_screen
@@ -201,13 +202,18 @@ class App
 
   ############## UTILITY METHODS ##############
 
+  def clear_input_window
+    @input_window.clear
+    @input_window.box("|", "-")
+    @input_window.refresh
+  end
+
   def empty_window_with_title(title)
-    empty_window(@main)
+    empty_main
     draw_title(title)
   end
 
   def prompt_value(prompt)
-    empty_window(@input_window)
     @input_window.setpos(@input_window.maxy / 2, 2)
     @input_window.addstr("#{prompt}: ")
     curs_set(1)
@@ -222,7 +228,7 @@ class App
   end
 
   def choose_to?(prompt)
-    empty_window(@input_window)
+    clear_input_window
     @input_window.setpos(@input_window.maxy / 2, 2)
     @input_window.addstr("Press 'y' to #{prompt}: ")
     curs_set(1)
@@ -236,7 +242,7 @@ class App
   end
 
   def wait_for_key(prompt)
-    empty_window(@input_window)
+    clear_input_window
     @input_window.setpos(@input_window.maxy / 2, 2)
     @input_window.addstr(prompt)
     @input_window.refresh
@@ -248,21 +254,20 @@ class App
     chars = chars.is_a?(Array) ?
       chars.flatten :
       chars.chars
-    offset = 1
     if cycle
-      counter = offset
+      counter = 0
       chars.cycle do |ch|
-        @main.setpos(counter, 1)
-        @main.addstr((ch * WIDTH)[0..WIDTH - 3])
+        @main.setpos(counter, 0)
+        @main.addstr((ch * WIDTH)[0..WIDTH - 1])
         @main.refresh
         counter += 1
         sleep(speed) if update_each_segment
-        break if counter > @main.maxy - 2
+        break if counter == @main.maxy
       end
     else
       chars.each do |ch|
-        @main.setpos(counter, 1)
-        @main.addstr((ch * WIDTH)[0..WIDTH - 3])
+        @main.setpos(counter, 0)
+        @main.addstr((ch * WIDTH)[0..WIDTH - 1])
         @main.refresh
         counter += 1
         sleep(speed) if update_each_segment
@@ -274,11 +279,11 @@ class App
 
   def animate_list(arr, speed = 0.25)
     arr.each.with_index do |s, i|
-      @main.setpos(i + 3, 2) # set position to current option
+      @main.setpos(i + 2, 0) # set position to current option
       @main.addstr("#{i + 1}. #{s}") # write the name
       @main.refresh
       sleep speed
-      break if i >= HEIGHT - 4
+      break if i == HEIGHT
     end
     @main.refresh
   end
@@ -321,7 +326,7 @@ class App
 
   def draw_options_window(options, selection_index)
     options.each.with_index do |s, i|
-      @main.setpos(i + 3, 2) # set position to current option
+      @main.setpos(i + 2, 0) # set position to current option
       @main.attrset(i == selection_index ? A_STANDOUT : A_NORMAL) # highlight if it matches selection index
       if s.is_a?(Hash) then @main.addstr("#{i + 1}. #{s.values.first}"); next end
       @main.addstr(s)
@@ -329,23 +334,22 @@ class App
     @main.refresh
   end
 
-  def empty_window(window)
-    window.attrset(A_NORMAL)
-    window.clear
-    window.box("|", "-")
-    window.setpos(1, 1)
-    window.refresh
-  end
-
   def draw_title(string)
-    @main.setpos(1, 2)
-    @main.addstr(" #{string} ".center(@main.maxx - 4, '—'))
+    @main.setpos(0, 0)
+    @main.addstr(" #{string} ".center(@main.maxx, '-'))
     @main.refresh
   end
 
   def hide_window(window)
     window.clear
     window.refresh
+  end
+
+  def empty_main
+    @main_border.box("|", "-")
+    @main.clear
+    @main_border.refresh
+    @main.refresh
   end
 end
 
