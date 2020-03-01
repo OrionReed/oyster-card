@@ -34,7 +34,8 @@ class OysterCard
   end
 
   def exceeds_max_balance(amount)
-    raise "Exceeded maximum balance" if @balance + amount > MAX_BALANCE
+    # raise "#{amount} to top up"
+    raise "Exceeded maximum balance [#{amount}, #{MAX_BALANCE}]" if (@balance + amount).to_i > MAX_BALANCE
   end
 
   def exceeds_min_balance

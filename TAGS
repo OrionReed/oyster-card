@@ -1,0 +1,136 @@
+
+lib/rain.rb,43
+def onsig(sig)onsig4,0
+def ranfranf9,0
+
+lib/exp.rb,424
+class ExpExp5,0
+  SPEED = 0.01SPEED6,0
+  SPEED = 0.01Exp::SPEED6,0
+  HEIGHT = 26HEIGHT7,0
+  HEIGHT = 26Exp::HEIGHT7,0
+  WIDTH = 100WIDTH8,0
+  WIDTH = 100Exp::WIDTH8,0
+  CHAR = 'x'CHAR9,0
+  CHAR = 'x'Exp::CHAR9,0
+  ANIMATE_LINE = { move: :left, update: :now, wait: SPEED }ANIMATE_LINE11,0
+  ANIMATE_LINE = { move: :left, update: :now, wait: SPEED }Exp::ANIMATE_LINE11,0
+  def initializeinitialize13,0
+
+lib/zone.rb,289
+module ZoneZone1,0
+  ONE = 1ONE2,0
+  ONE = 1Zone::ONE2,0
+  TWO = 2TWO3,0
+  TWO = 2Zone::TWO3,0
+  THREE = 3THREE4,0
+  THREE = 3Zone::THREE4,0
+  FOUR = 4FOUR5,0
+  FOUR = 4Zone::FOUR5,0
+  FIVE = 5FIVE6,0
+  FIVE = 5Zone::FIVE6,0
+  SIX = 6SIX7,0
+  SIX = 6Zone::SIX7,0
+
+lib/oyster_card.rb,570
+class OysterCardOysterCard4,0
+  MAX_BALANCE = 90MAX_BALANCE5,0
+  MAX_BALANCE = 90OysterCard::MAX_BALANCE5,0
+  MIN_BALANCE = 1MIN_BALANCE6,0
+  MIN_BALANCE = 1OysterCard::MIN_BALANCE6,0
+  attr_reader :balancebalance8,0
+  attr_reader :journey_logjourney_log9,0
+  def initializeinitialize11,0
+  def top_up(amount)top_up16,0
+  def touch_in(entry_station)touch_in20,0
+  def touch_out(exit_station)touch_out25,0
+  def deduct(amount)deduct32,0
+  def exceeds_max_balance(amount)exceeds_max_balance36,0
+  def exceeds_min_balanceexceeds_min_balance40,0
+
+lib/journey.rb,375
+class JourneyJourney1,0
+  MIN_FARE = 1MIN_FARE2,0
+  MIN_FARE = 1Journey::MIN_FARE2,0
+  MAX_FARE = 6MAX_FARE3,0
+  MAX_FARE = 6Journey::MAX_FARE3,0
+  attr_reader :entry_stationentry_station4,0
+  attr_reader :exit_stationexit_station5,0
+  def initialize(station = nil)initialize7,0
+  def end(station)end12,0
+  def complete?complete?17,0
+  def farefare21,0
+
+lib/app.rb,1709
+class AppApp8,0
+  LOAD_SPEED = 0.001LOAD_SPEED9,0
+  LOAD_SPEED = 0.001App::LOAD_SPEED9,0
+  STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }STATIONS10,0
+  STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }App::STATIONS10,0
+  HEIGHT = 26HEIGHT11,0
+  HEIGHT = 26App::HEIGHT11,0
+  WIDTH = 100WIDTH12,0
+  WIDTH = 100App::WIDTH12,0
+  TRAIN = '[____]'TRAIN13,0
+  TRAIN = '[____]'App::TRAIN13,0
+  SMOKE = ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', '']SMOKE14,0
+  SMOKE = ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', '']App::SMOKE14,0
+  SMOKE_OFFSET = 2SMOKE_OFFSET15,0
+  SMOKE_OFFSET = 2App::SMOKE_OFFSET15,0
+  TRAIN_TIME = 0.1TRAIN_TIME16,0
+  TRAIN_TIME = 0.1App::TRAIN_TIME16,0
+  OPTIONS = [OPTIONS17,0
+  OPTIONS = [App::OPTIONS17,0
+  def initializeinitialize26,0
+  def run # main flowrun33,0
+  def startupstartup38,0
+  def main_loopmain_loop49,0
+  def balancebalance66,0
+  def top_uptop_up74,0
+  def historyhistory101,0
+  def startstart113,0
+  def mapmap170,0
+  def quitquit178,0
+  def prompt_value(prompt)prompt_value188,0
+  def try_again?(message, prompt)try_again?203,0
+  def animate_lines(chars, cycle = false)animate_lines219,0
+  def animate_list(arr)animate_list246,0
+  def draw_message(message, style = A_STANDOUT)draw_message257,0
+  def draw_options(options)draw_options266,0
+  def draw_options_window(options, selection_index)draw_options_window284,0
+  def empty_window(window)empty_window294,0
+  def draw_title(string)draw_title302,0
+  def hide_window(window)hide_window308,0
+
+lib/station.rb,128
+class StationStation1,0
+  attr_reader :namename2,0
+  attr_reader :zonezone3,0
+  def initialize(name, zone)initialize5,0
+
+lib/journey_log.rb,192
+class JourneyLogJourneyLog2,0
+  attr_reader :currentcurrent3,0
+  def initializeinitialize5,0
+  def start(station)start10,0
+  def finish(station)finish14,0
+  def historyhistory19,0
+
+lib/anim.rb,33
+def draw(this, fps = 5)draw3,0
+
+lib/clui.rb,440
+class CLUICLUI2,0
+  attr_accessor :prim, :secoprim3,0
+  attr_accessor :prim, :secoprim=3,0
+  attr_accessor :prim, :secoseco3,0
+  attr_accessor :prim, :secoseco=3,0
+  def initialize(x = nil, y = nil)initialize5,0
+  def char_sequence(char, rules, start_x, start_y)char_sequence21,0
+  def do_step(char)do_step39,0
+  def rule_move(val)rule_move44,0
+  def rule_wait(val)rule_wait62,0
+  def rule_update(_val)rule_update66,0
+
+lib/hello.rb,43
+def show_message(message)show_message6,0

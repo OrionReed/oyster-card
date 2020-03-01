@@ -1,892 +1,1727 @@
 <!DOCTYPE html>
-
 <html>
-<head>
-<meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: App
+  
+    &mdash; Documentation by YARD 0.9.24
+  
+</title>
 
-<title>class App - RDoc Documentation</title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
 <script type="text/javascript">
-  var rdoc_rel_prefix = "./";
-  var index_rel_prefix = "./";
+  pathId = "App";
+  relpath = '';
 </script>
 
-<script src="./js/navigation.js" defer></script>
-<script src="./js/search.js" defer></script>
-<script src="./js/search_index.js" defer></script>
-<script src="./js/searcher.js" defer></script>
-<script src="./js/darkfish.js" defer></script>
 
-<link href="./css/fonts.css" rel="stylesheet">
-<link href="./css/rdoc.css" rel="stylesheet">
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
 
 
-
-
-<body id="top" role="document" class="class">
-<nav role="navigation">
-  <div id="project-navigation">
-    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
-  <h2>
-    <a href="./index.html" rel="home">Home</a>
-  </h2>
-
-  <div id="table-of-contents-navigation">
-    <a href="./table_of_contents.html#pages">Pages</a>
-    <a href="./table_of_contents.html#classes">Classes</a>
-    <a href="./table_of_contents.html#methods">Methods</a>
-  </div>
-</div>
-
-    <div id="search-section" role="search" class="project-section initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <div id="search-field-wrapper">
-      <input id="search-field" role="combobox" aria-label="Search"
-             aria-autocomplete="list" aria-controls="search-results"
-             type="text" name="search" placeholder="Search" spellcheck="false"
-             title="Type to search, Up and Down to navigate, Enter to load">
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
     </div>
 
-    <ul id="search-results" aria-label="Search Results"
-        aria-busy="false" aria-expanded="false"
-        aria-atomic="false" class="initially-hidden"></ul>
-  </form>
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (A)</a> &raquo;
+    
+    
+    <span class="title">App</span>
+  
 </div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: App
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">App</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/app.rb</dd>
+  </dl>
+  
+</div>
+
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="LOAD_SPEED-constant" class="">LOAD_SPEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='float'>0.001</span></pre></dd>
+      
+        <dt id="STATIONS-constant" class="">STATIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>./data/stations.csv</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_drop'>drop</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Station.html" title="Station (class)">Station</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Station.html#initialize-instance_method" title="Station#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span> <span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="HEIGHT-constant" class="">HEIGHT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>26</span></pre></dd>
+      
+        <dt id="WIDTH-constant" class="">WIDTH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>100</span></pre></dd>
+      
+        <dt id="TRAIN-constant" class="">TRAIN =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>[____]</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+      
+        <dt id="SMOKE-constant" class="">SMOKE =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>o</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>○</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>◯</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>•</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>‘</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>˚</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>˙</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span></pre></dd>
+      
+        <dt id="SMOKE_OFFSET-constant" class="">SMOKE_OFFSET =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="TRAIN_TIME-constant" class="">TRAIN_TIME =
+          
+        </dt>
+        <dd><pre class="code"><span class='float'>0.1</span></pre></dd>
+      
+        <dt id="OPTIONS-constant" class="">OPTIONS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='lbrace'>{</span> <span class='label'>balance:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>View Balance</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>topup:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Top Up</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>history:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show Journey History</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>start:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Start Train Journey</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>map:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show Stations</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span> <span class='label'>quit:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Quit</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+<span class='rbracket'>]</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#animate_lines-instance_method" title="#animate_lines (instance method)">#<strong>animate_lines</strong>(chars, cycle = false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#animate_list-instance_method" title="#animate_list (instance method)">#<strong>animate_list</strong>(arr)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#balance-instance_method" title="#balance (instance method)">#<strong>balance</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>OPTIONS ##############.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#draw_message-instance_method" title="#draw_message (instance method)">#<strong>draw_message</strong>(message, style = A_STANDOUT)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#draw_options-instance_method" title="#draw_options (instance method)">#<strong>draw_options</strong>(options)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#draw_options_window-instance_method" title="#draw_options_window (instance method)">#<strong>draw_options_window</strong>(options, selection_index)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#draw_title-instance_method" title="#draw_title (instance method)">#<strong>draw_title</strong>(string)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#empty_window-instance_method" title="#empty_window (instance method)">#<strong>empty_window</strong>(window)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hide_window-instance_method" title="#hide_window (instance method)">#<strong>hide_window</strong>(window)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#history-instance_method" title="#history (instance method)">#<strong>history</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; App </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of App.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#main_loop-instance_method" title="#main_loop (instance method)">#<strong>main_loop</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#map-instance_method" title="#map (instance method)">#<strong>map</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prompt_value-instance_method" title="#prompt_value (instance method)">#<strong>prompt_value</strong>(prompt)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>UTILITY METHODS ##############.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#quit-instance_method" title="#quit (instance method)">#<strong>quit</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">#<strong>run</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>main flow.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-instance_method" title="#start (instance method)">#<strong>start</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#startup-instance_method" title="#startup (instance method)">#<strong>startup</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#top_up-instance_method" title="#top_up (instance method)">#<strong>top_up</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#try_again%3F-instance_method" title="#try_again? (instance method)">#<strong>try_again?</strong>(message, prompt)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="App (class)">App</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of App.</p>
+
 
   </div>
-
+</div>
+<div class="tags">
   
 
-  <div id="class-metadata">
-    
-    <div id="parent-class-section" class="nav-section">
-  <h3>Parent</h3>
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
-  
-  <p class="link">Object
+
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='ivar'>@ui</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="CLUI.html" title="CLUI (class)">CLUI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="CLUI.html#initialize-instance_method" title="CLUI#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#HEIGHT-constant" title="App::HEIGHT (constant)">HEIGHT</a></span></span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_sequence_y'>sequence_y</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#SMOKE-constant" title="App::SMOKE (constant)">SMOKE</a></span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:wipe</span><span class='comma'>,</span> <span class='label'>cycle:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="OysterCard.html" title="OysterCard (class)">OysterCard</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="OysterCard.html#initialize-instance_method" title="OysterCard#initialize (method)">new</a></span></span>
+  <span class='ivar'>@input_window</span> <span class='op'>=</span> <span class='const'>Curses</span><span class='op'>::</span><span class='const'>Window</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='int'>3</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='comma'>,</span> <span class='lparen'>(</span><span class='const'>Curses</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#HEIGHT-constant" title="App::HEIGHT (constant)">HEIGHT</a></span></span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='const'><span class='object_link'><a href="#HEIGHT-constant" title="App::HEIGHT (constant)">HEIGHT</a></span></span><span class='comma'>,</span> <span class='const'>Curses</span><span class='period'>.</span><span class='id identifier rubyid_cols'>cols</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
   
 </div>
 
-    
-    
-    <!-- Method Quickref -->
-<div id="method-list-section" class="nav-section">
-  <h3>Methods</h3>
 
-  <ul class="link-list" role="directory">
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
     
-    <li ><a href="#method-c-new">::new</a>
-    
-    <li ><a href="#method-i-animate_lines">#animate_lines</a>
-    
-    <li ><a href="#method-i-balance">#balance</a>
-    
-    <li ><a href="#method-i-draw_message">#draw_message</a>
-    
-    <li ><a href="#method-i-draw_options">#draw_options</a>
-    
-    <li ><a href="#method-i-draw_options_window">#draw_options_window</a>
-    
-    <li ><a href="#method-i-draw_title">#draw_title</a>
-    
-    <li ><a href="#method-i-empty_window">#empty_window</a>
-    
-    <li ><a href="#method-i-hide_window">#hide_window</a>
-    
-    <li ><a href="#method-i-history">#history</a>
-    
-    <li ><a href="#method-i-main_loop">#main_loop</a>
-    
-    <li ><a href="#method-i-prompt_value">#prompt_value</a>
-    
-    <li ><a href="#method-i-quit">#quit</a>
-    
-    <li ><a href="#method-i-run">#run</a>
-    
-    <li ><a href="#method-i-start">#start</a>
-    
-    <li ><a href="#method-i-startup">#startup</a>
-    
-    <li ><a href="#method-i-top_up">#top_up</a>
-    
-  </ul>
+      <div class="method_details first">
+  <h3 class="signature first" id="animate_lines-instance_method">
+  
+    #<strong>animate_lines</strong>(chars, cycle = false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 219</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_animate_lines'>animate_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_chars'>chars</span><span class='comma'>,</span> <span class='id identifier rubyid_cycle'>cycle</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_offset'>offset</span> <span class='op'>=</span> <span class='int'>2</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_cycle'>cycle</span>
+    <span class='id identifier rubyid_counter'>counter</span> <span class='op'>=</span> <span class='id identifier rubyid_offset'>offset</span>
+    <span class='id identifier rubyid_chars'>chars</span><span class='period'>.</span><span class='id identifier rubyid_cycle'>cycle</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ch'>ch</span><span class='op'>|</span>
+      <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_counter'>counter</span> <span class='op'>&gt;</span> <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>-</span> <span class='int'>2</span>
+      <span class='int'>2</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxx'>maxx</span> <span class='op'>-</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='id identifier rubyid_counter'>counter</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_ch'>ch</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+        <span class='id identifier rubyid_sleep'>sleep</span> <span class='const'><span class='object_link'><a href="#LOAD_SPEED-constant" title="App::LOAD_SPEED (constant)">LOAD_SPEED</a></span></span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_counter'>counter</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_chars'>chars</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='int'>2</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxx'>maxx</span> <span class='op'>-</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span> <span class='op'>+</span> <span class='id identifier rubyid_offset'>offset</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_char'>char</span> <span class='op'>=</span> <span class='id identifier rubyid_chars'>chars</span><span class='lbracket'>[</span><span class='id identifier rubyid_line'>line</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_chars'>chars</span><span class='lbracket'>[</span><span class='id identifier rubyid_line'>line</span><span class='rbracket'>]</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_char'>char</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+        <span class='id identifier rubyid_sleep'>sleep</span> <span class='const'><span class='object_link'><a href="#LOAD_SPEED-constant" title="App::LOAD_SPEED (constant)">LOAD_SPEED</a></span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
 </div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="animate_list-instance_method">
+  
+    #<strong>animate_list</strong>(arr)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 246</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_animate_list'>animate_list</span><span class='lparen'>(</span><span class='id identifier rubyid_arr'>arr</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_arr'>arr</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>3</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># set position to current option
+</span>    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'>. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># write the name
+</span>    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+    <span class='id identifier rubyid_sleep'>sleep</span> <span class='float'>0.3</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;=</span> <span class='const'><span class='object_link'><a href="#HEIGHT-constant" title="App::HEIGHT (constant)">HEIGHT</a></span></span> <span class='op'>-</span> <span class='int'>4</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="balance-instance_method">
+  
+    #<strong>balance</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>OPTIONS ##############</p>
+
 
   </div>
-</nav>
+</div>
+<div class="tags">
+  
 
-<main role="main" aria-labelledby="class-App">
-  <h1 id="class-App" class="class">
-    class App
-  </h1>
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
-  <section class="description">
+
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 66</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_balance'>balance</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Current Balance</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Account has £</span><span class='embexpr_beg'>#{</span><span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span><span class='embexpr_end'>}</span><span class='tstring_content'> and a max balance of £</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="OysterCard.html" title="OysterCard (class)">OysterCard</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="OysterCard.html#MAX_BALANCE-constant" title="OysterCard::MAX_BALANCE (constant)">MAX_BALANCE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-  </section>
+      <div class="method_details ">
+  <h3 class="signature " id="draw_message-instance_method">
+  
+    #<strong>draw_message</strong>(message, style = A_STANDOUT)  &#x21d2; <tt>Object</tt> 
+  
 
   
-  <section id="5Buntitled-5D" class="documentation-section">
-    
 
-    
-
-    
-    <section class="constants-list">
-      <header>
-        <h3>Constants</h3>
-      </header>
-      <dl>
-      
-        <dt id="HEIGHT">HEIGHT
-        
-        <dd>
-        
-      
-        <dt id="LOAD_SPEED">LOAD_SPEED
-        
-        <dd>
-        
-      
-        <dt id="OPTIONS">OPTIONS
-        
-        <dd>
-        
-      
-        <dt id="STATIONS">STATIONS
-        
-        <dd>
-        
-      
-        <dt id="WIDTH">WIDTH
-        
-        <dd>
-        
-      
-      </dl>
-    </section>
-    
-
-    
-
-    
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Class Methods</h3>
-       </header>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
-  <span class="ruby-comment"># Get all stations from stations.csv file and create new station object for each one</span>
-  <span class="ruby-identifier">init_screen</span> <span class="ruby-comment"># start curses</span>
-  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">0</span>) <span class="ruby-comment"># hide cursor</span>
-  <span class="ruby-identifier">noecho</span> <span class="ruby-comment"># dont echo all input straight away</span>
-  <span class="ruby-ivar">@card</span> = <span class="ruby-constant">OysterCard</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@main_window</span> = <span class="ruby-constant">Curses</span><span class="ruby-operator">::</span><span class="ruby-constant">Window</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">HEIGHT</span>, <span class="ruby-constant">WIDTH</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">lines</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">HEIGHT</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">cols</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">WIDTH</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)
-  <span class="ruby-ivar">@input_window</span> = <span class="ruby-constant">Curses</span><span class="ruby-operator">::</span><span class="ruby-constant">Window</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">3</span>, <span class="ruby-constant">WIDTH</span>, (<span class="ruby-constant">Curses</span>.<span class="ruby-identifier">lines</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">HEIGHT</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">HEIGHT</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">cols</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">WIDTH</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
+
+257
+258
+259
+260
+261
+262
+263
+264</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 257</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_style'>style</span> <span class='op'>=</span> <span class='const'>A_STANDOUT</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_padding'>padding</span> <span class='op'>=</span> <span class='int'>8</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>8</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_attrset'>attrset</span><span class='lparen'>(</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_center'>center</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxx'>maxx</span> <span class='op'>-</span> <span class='lparen'>(</span><span class='id identifier rubyid_padding'>padding</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_attrset'>attrset</span><span class='lparen'>(</span><span class='const'>A_NORMAL</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-animate_lines" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">animate_lines</span><span
-            class="method-args">(chars, cycle = false)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="animate_lines-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 145</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">animate_lines</span>(<span class="ruby-identifier">chars</span>, <span class="ruby-identifier">cycle</span> = <span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">offset</span> = <span class="ruby-value">2</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">cycle</span>
-    <span class="ruby-identifier">counter</span> = <span class="ruby-identifier">offset</span>
-    <span class="ruby-identifier">chars</span>.<span class="ruby-identifier">cycle</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ch</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">counter</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
-      <span class="ruby-value">2</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">i</span>)
-        <span class="ruby-ivar">@main_window</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ch</span>
-        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
-        <span class="ruby-identifier">sleep</span> <span class="ruby-constant">LOAD_SPEED</span>
-      <span class="ruby-keyword">end</span>
-      <span class="ruby-identifier">counter</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">chars</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-      <span class="ruby-value">2</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">offset</span>, <span class="ruby-identifier">i</span>)
-        <span class="ruby-identifier">char</span> = <span class="ruby-identifier">chars</span>[<span class="ruby-identifier">line</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">chars</span>[<span class="ruby-identifier">line</span>]
-        <span class="ruby-ivar">@main_window</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">char</span>
-        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
-        <span class="ruby-identifier">sleep</span> <span class="ruby-constant">LOAD_SPEED</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-balance" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">balance</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p><a href="App.html#OPTIONS"><code>OPTIONS</code></a> ##############</p>
-          
-          
-
-          
-          <div class="method-source-code" id="balance-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 63</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">balance</span>
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Current Balance&#39;</span>)
-  <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}&quot;</span>)
-  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
-  <span class="ruby-identifier">main_loop</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-draw_message" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">draw_message</span><span
-            class="method-args">(message, style = A_STANDOUT)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="draw_message-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 172</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_message</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">style</span> = <span class="ruby-constant">A_STANDOUT</span>)
-  <span class="ruby-identifier">padding</span> = <span class="ruby-value">8</span>
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-value">8</span>)
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-identifier">style</span>)
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-identifier">message</span>.<span class="ruby-identifier">center</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">padding</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)))
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-draw_options" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">draw_options</span><span
-            class="method-args">(options)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="draw_options-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 181</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_options</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-identifier">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">position</span> = <span class="ruby-value">-1</span>
-  <span class="ruby-keyword">while</span> (<span class="ruby-identifier">ch</span> = <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">getch</span>)
-    <span class="ruby-keyword">case</span> <span class="ruby-identifier">ch</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;w&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;s&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;d&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">break</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;q&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">exit</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">position</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">position</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span>
-    <span class="ruby-identifier">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">position</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">options</span>[<span class="ruby-identifier">position</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-draw_options_window" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">draw_options_window</span><span
-            class="method-args">(options, selection_index)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="draw_options_window-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 198</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">selection_index</span>)
-  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span>.<span class="ruby-identifier">with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span>, <span class="ruby-value">2</span>) <span class="ruby-comment"># set position to current option</span>
-    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">selection_index</span> <span class="ruby-operator">?</span> <span class="ruby-constant">A_STANDOUT</span> <span class="ruby-operator">:</span> <span class="ruby-constant">A_NORMAL</span>) <span class="ruby-comment"># highlight if it matches selection index</span>
-    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot;#{i + 1}. #{s.values.first}&quot;</span>) <span class="ruby-comment"># write the name</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-draw_title" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">draw_title</span><span
-            class="method-args">(string)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="draw_title-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 215</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_title</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>)
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot; #{string} &quot;</span>.<span class="ruby-identifier">center</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">4</span>, <span class="ruby-string">&#39;—&#39;</span>))
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-empty_window" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">empty_window</span><span
-            class="method-args">(window)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="empty_window-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 207</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">empty_window</span>(<span class="ruby-identifier">window</span>)
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">clear</span>
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">box</span>(<span class="ruby-string">&quot;|&quot;</span>, <span class="ruby-string">&quot;-&quot;</span>)
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-value">1</span>, <span class="ruby-value">1</span>)
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">refresh</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-hide_window" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">hide_window</span><span
-            class="method-args">(window)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="hide_window-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 221</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">hide_window</span>(<span class="ruby-identifier">window</span>)
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">clear</span>
-  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">refresh</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-history" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">history</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="history-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 98</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">history</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-main_loop" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">main_loop</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="main_loop-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 48</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main_loop</span>
-  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&quot;Options (Use W/S to move, D to select)&quot;</span>)
-  <span class="ruby-identifier">option</span> = <span class="ruby-identifier">draw_options</span>(<span class="ruby-constant">OPTIONS</span>)
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">option</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:balance</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">balance</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:topup</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">top_up</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:start</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">start</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:quit</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">quit</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-prompt_value" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">prompt_value</span><span
-            class="method-args">(prompt)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>UTILITY METHODS ##############</p>
-          
-          
-
-          
-          <div class="method-source-code" id="prompt_value-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 131</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prompt_value</span>(<span class="ruby-identifier">prompt</span>)
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@input_window</span>)
-  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-value">2</span>)
-  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot;#{prompt}: &quot;</span>)
-  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">1</span>)
-  <span class="ruby-identifier">echo</span>
-  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">refresh</span>
-  <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">getstr</span>
-  <span class="ruby-identifier">noecho</span>
-  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">0</span>)
-  <span class="ruby-identifier">hide_window</span>(<span class="ruby-ivar">@input_window</span>)
-  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_i</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-quit" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">quit</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="quit-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 121</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">quit</span>
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-  <span class="ruby-identifier">draw_message</span>(<span class="ruby-string">&#39;Goodbye!&#39;</span>)
-  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
-  <span class="ruby-identifier">close_screen</span>
-  <span class="ruby-identifier">exit</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-run" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">run</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span> <span class="ruby-comment"># main flow</span>
-  <span class="ruby-identifier">startup</span>
-  <span class="ruby-identifier">main_loop</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-start" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">start</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 101</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start</span>
-  <span class="ruby-comment">#     1. Shows list of stations with selector</span>
-  <span class="ruby-comment">#     2. After selecting one, shows it in new window</span>
-  <span class="ruby-comment">#     3. After selecting second, shows it in new window</span>
-  <span class="ruby-comment">#        1. Shows distance and cost of journey</span>
-  <span class="ruby-comment">#        2. Asks if user wants to return to options or start journey</span>
-  <span class="ruby-comment">#        - Returns to options menu if yes</span>
-  <span class="ruby-comment">#        3. Shows 3-line train animation in new window</span>
-  <span class="ruby-comment">#        - Shows string moving between two station names</span>
-  <span class="ruby-comment">#        - Shows distance travelled and percentage complete (considering journey distance)</span>
-  <span class="ruby-comment">#        - Shows smoke as series of animated unicode chars [&#39;o&#39;, &#39;○&#39;, &#39;◯&#39;, &#39;O&#39;, &#39;•&#39;, &#39;‘&#39;, &#39;˚&#39;, &#39;˙&#39;, &#39;&#39;, &#39;&#39;] starting from train position and staying at same position</span>
-  <span class="ruby-comment">#          This can be done by adding index of train position to a hash,</span>
-  <span class="ruby-comment">#          then each frame, go through each position in smoke string and check if that index exists in the hash</span>
-  <span class="ruby-comment">#          if it does, set the current character to current train index - matched index, if it&#39;s out of range it means the smoke has cleared so print nothing</span>
-  <span class="ruby-comment">#        4. Listens for hidden message</span>
-  <span class="ruby-comment">#        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position</span>
-  <span class="ruby-comment">#        - Waits until character hits edge then returns to options</span>
-  <span class="ruby-comment">#        5. Shows &#39;Journey complete&#39; message then updates log and balance and returns to options</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-startup" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">startup</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="startup-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">startup</span>
-  <span class="ruby-comment"># show welcome window</span>
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-  <span class="ruby-comment"># show welcome message</span>
-  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Welcome to the Underground&#39;</span>)
-  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.1</span>)
-  <span class="ruby-comment"># show a loading bar below welcome message</span>
-  <span class="ruby-identifier">animate_lines</span>([<span class="ruby-string">&#39;O&#39;</span>, <span class="ruby-string">&#39;◯&#39;</span>, <span class="ruby-string">&#39;o&#39;</span>, <span class="ruby-string">&#39;•&#39;</span>, <span class="ruby-string">&#39;‘&#39;</span>, <span class="ruby-string">&#39;˚&#39;</span>, <span class="ruby-string">&#39;˙&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>], <span class="ruby-keyword">false</span>)
-  <span class="ruby-comment"># animate_lines([&#39; &#39;], true)</span>
-  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-top_up" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">top_up</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="top_up-source">
-            <pre><span class="ruby-comment"># File lib/app.rb, line 71</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">top_up</span>
-  <span class="ruby-comment"># 1. Clears screen, shows current balance</span>
-  <span class="ruby-value">1</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-    <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Please Enter Top-Up Amount&#39;</span>)
-    <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account currently has £#{@card.balance}&quot;</span>)
-    <span class="ruby-comment"># 2. Asks for input &#39;how much?&#39;</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">value</span> = <span class="ruby-identifier">prompt_value</span>(<span class="ruby-string">&quot;Enter Amount&quot;</span>)
-    <span class="ruby-keyword">rescue</span>
-      <span class="ruby-identifier">draw_message</span>(<span class="ruby-string">&quot;RESCUED!!!&quot;</span>)
-      <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
-      <span class="ruby-keyword">redo</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">try_again?</span>(<span class="ruby-string">&#39;Invalid Amount: Max balance of £90 exceeded&#39;</span>)
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
-      <span class="ruby-keyword">redo</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">try_again?</span>(<span class="ruby-string">&#39;Invalid Input, please try again&#39;</span>)
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-comment">#        Tops up card</span>
-    <span class="ruby-identifier">hide_window</span>(<span class="ruby-ivar">@input_window</span>)
-    <span class="ruby-ivar">@card</span>.<span class="ruby-identifier">top_up</span>(<span class="ruby-identifier">value</span>)
-    <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
-    <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account now has £#{@card.balance}&quot;</span>)
-    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">main_loop</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
+      <div class="method_details ">
+  <h3 class="signature " id="draw_options-instance_method">
   
-  </section>
+    #<strong>draw_options</strong>(options)  &#x21d2; <tt>Object</tt> 
+  
 
-</main>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
 
-<footer id="validator-badges" role="contentinfo">
-  <p><a href="https://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
-</footer>
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 266</span>
 
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_options'>draw_options</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_options_window'>draw_options_window</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_ch'>ch</span> <span class='op'>=</span> <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_getch'>getch</span><span class='rparen'>)</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_ch'>ch</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>w</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>then</span> <span class='id identifier rubyid_position'>position</span> <span class='op'>-=</span> <span class='int'>1</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>s</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>then</span> <span class='id identifier rubyid_position'>position</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>d</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>then</span> <span class='kw'>break</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>q</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>then</span> <span class='id identifier rubyid_exit'>exit</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_position'>position</span> <span class='op'>&lt;</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='int'>0</span> <span class='kw'>if</span> <span class='id identifier rubyid_position'>position</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+    <span class='id identifier rubyid_draw_options_window'>draw_options_window</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_position'>position</span> <span class='kw'>unless</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_position'>position</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="draw_options_window-instance_method">
+  
+    #<strong>draw_options_window</strong>(options, selection_index)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+284
+285
+286
+287
+288
+289
+290
+291
+292</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 284</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_options_window'>draw_options_window</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_selection_index'>selection_index</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>3</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># set position to current option
+</span>    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_attrset'>attrset</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span> <span class='op'>==</span> <span class='id identifier rubyid_selection_index'>selection_index</span> <span class='op'>?</span> <span class='const'>A_STANDOUT</span> <span class='op'>:</span> <span class='const'>A_NORMAL</span><span class='rparen'>)</span> <span class='comment'># highlight if it matches selection index
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='kw'>then</span> <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'>. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>next</span> <span class='kw'>end</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="draw_title-instance_method">
+  
+    #<strong>draw_title</strong>(string)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+302
+303
+304
+305
+306</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 302</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_string'>string</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_center'>center</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxx'>maxx</span> <span class='op'>-</span> <span class='int'>4</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>—</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="empty_window-instance_method">
+  
+    #<strong>empty_window</strong>(window)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+294
+295
+296
+297
+298
+299
+300</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 294</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='id identifier rubyid_window'>window</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_attrset'>attrset</span><span class='lparen'>(</span><span class='const'>A_NORMAL</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_box'>box</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hide_window-instance_method">
+  
+    #<strong>hide_window</strong>(window)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+308
+309
+310
+311</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 308</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_hide_window'>hide_window</span><span class='lparen'>(</span><span class='id identifier rubyid_window'>window</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='id identifier rubyid_window'>window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="history-instance_method">
+  
+    #<strong>history</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_history'>history</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Journey History</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_journey_log'>journey_log</span><span class='period'>.</span><span class='id identifier rubyid_history'>history</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No history yet</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>A_STANDOUT</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_main_loop'>main_loop</span> <span class='kw'>if</span> <span class='id identifier rubyid_try_again?'>try_again?</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Return to options? (y/n): </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_history'>history</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_journey_log'>journey_log</span><span class='period'>.</span><span class='id identifier rubyid_history'>history</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_entry_station'>entry_station</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_exit_station'>exit_station</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> — £</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_fare'>fare</span><span class='embexpr_end'>}</span><span class='tstring_content'>, </span><span class='embexpr_beg'>#{</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_entry_station'>entry_station</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span> <span class='op'>-</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_exit_station'>exit_station</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span> <span class='op'>+</span> <span class='int'>1</span> <span class='op'>*</span> <span class='int'>3</span><span class='embexpr_end'>}</span><span class='tstring_content'>km</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_animate_list'>animate_list</span><span class='lparen'>(</span><span class='id identifier rubyid_history'>history</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span> <span class='kw'>if</span> <span class='id identifier rubyid_try_again?'>try_again?</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Return to options? (y/n): </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="main_loop-instance_method">
+  
+    #<strong>main_loop</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_main_loop'>main_loop</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_attrset'>attrset</span><span class='lparen'>(</span><span class='const'>A_NORMAL</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Options (Use W/S to move, D to select)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_draw_options'>draw_options</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#OPTIONS-constant" title="App::OPTIONS (constant)">OPTIONS</a></span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_option'>option</span>
+  <span class='kw'>when</span> <span class='symbol'>:balance</span> <span class='kw'>then</span> <span class='id identifier rubyid_balance'>balance</span>
+  <span class='kw'>when</span> <span class='symbol'>:topup</span> <span class='kw'>then</span> <span class='id identifier rubyid_top_up'>top_up</span>
+  <span class='kw'>when</span> <span class='symbol'>:history</span> <span class='kw'>then</span> <span class='id identifier rubyid_history'>history</span>
+  <span class='kw'>when</span> <span class='symbol'>:start</span> <span class='kw'>then</span> <span class='id identifier rubyid_start'>start</span>
+  <span class='kw'>when</span> <span class='symbol'>:map</span> <span class='kw'>then</span> <span class='id identifier rubyid_map'>map</span>
+  <span class='kw'>when</span> <span class='symbol'>:quit</span> <span class='kw'>then</span> <span class='id identifier rubyid_quit'>quit</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="map-instance_method">
+  
+    #<strong>map</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+170
+171
+172
+173
+174
+175
+176</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 170</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_map'>map</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>All Stations</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_stations_list'>stations_list</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Zone </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_animate_list'>animate_list</span><span class='lparen'>(</span><span class='id identifier rubyid_stations_list'>stations_list</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span> <span class='kw'>if</span> <span class='id identifier rubyid_try_again?'>try_again?</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Return to options? (y/n): </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="prompt_value-instance_method">
+  
+    #<strong>prompt_value</strong>(prompt)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>UTILITY METHODS ##############</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 188</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prompt_value'>prompt_value</span><span class='lparen'>(</span><span class='id identifier rubyid_prompt'>prompt</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prompt'>prompt</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_curs_set'>curs_set</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_echo'>echo</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_getstr'>getstr</span>
+  <span class='id identifier rubyid_noecho'>noecho</span>
+  <span class='id identifier rubyid_curs_set'>curs_set</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hide_window'>hide_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>||</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="quit-instance_method">
+  
+    #<strong>quit</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+178
+179
+180
+181
+182
+183
+184</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 178</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_quit'>quit</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Goodbye!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_close_screen'>close_screen</span>
+  <span class='id identifier rubyid_exit'>exit</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="run-instance_method">
+  
+    #<strong>run</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>main flow</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span> <span class='comment'># main flow
+</span>  <span class='id identifier rubyid_startup'>startup</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start-instance_method">
+  
+    #<strong>start</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
+  <span class='id identifier rubyid_smoke_indeces'>smoke_indeces</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_pos'>pos</span> <span class='op'>=</span> <span class='int'>0</span>  <span class='comment'>#     1. Shows list of stations with selector
+</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Select start and end stations</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_option1'>option1</span> <span class='op'>=</span> <span class='id identifier rubyid_draw_options'>draw_options</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'><span class='object_link'><a href="#map-instance_method" title="App#map (method)">map</a></span></span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Z</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option1'>option1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='id identifier rubyid_option2'>option2</span> <span class='op'>=</span> <span class='id identifier rubyid_draw_options'>draw_options</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'><span class='object_link'><a href="#map-instance_method" title="App#map (method)">map</a></span></span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Z</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option2'>option2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_rjust'>rjust</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span> <span class='op'>-</span> <span class='int'>4</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option1'>option1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hide_window'>hide_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option1'>option1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>*</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option1'>option1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option2'>option2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>4</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option2'>option2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_center'>center</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Travelled %</span><span class='embexpr_beg'>#{</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>/</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>100</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_center'>center</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_pos'>pos</span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#TRAIN-constant" title="App::TRAIN (constant)">TRAIN</a></span></span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_pos'>pos</span> <span class='op'>+=</span> <span class='int'>1</span>
+    <span class='id identifier rubyid_smoke_indeces'>smoke_indeces</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_pos'>pos</span> <span class='kw'>if</span> <span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_sample'>sample</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_smoke_indeces'>smoke_indeces</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+      <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>+</span> <span class='const'><span class='object_link'><a href="#SMOKE_OFFSET-constant" title="App::SMOKE_OFFSET (constant)">SMOKE_OFFSET</a></span></span><span class='rparen'>)</span>
+      <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="#SMOKE-constant" title="App::SMOKE (constant)">SMOKE</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>-</span> <span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#SMOKE-constant" title="App::SMOKE (constant)">SMOKE</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_pos'>pos</span> <span class='op'>-</span> <span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+    <span class='id identifier rubyid_sleep'>sleep</span> <span class='const'><span class='object_link'><a href="#TRAIN_TIME-constant" title="App::TRAIN_TIME (constant)">TRAIN_TIME</a></span></span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_pos'>pos</span> <span class='op'>&gt;</span> <span class='const'><span class='object_link'><a href="#WIDTH-constant" title="App::WIDTH (constant)">WIDTH</a></span></span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="#TRAIN-constant" title="App::TRAIN (constant)">TRAIN</a></span></span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='kw'>then</span> <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='float'>0.5</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>break</span> <span class='kw'>end</span>
+  <span class='kw'>end</span>  <span class='comment'>#        4. Listens for hidden message
+</span>  <span class='comment'>#        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
+</span>  <span class='comment'>#        - Waits until character hits edge then returns to options
+</span>  <span class='comment'>#        5. Shows &#39;Journey complete&#39; message then updates log and balance and returns to options
+</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_journey_log'>journey_log</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option1'>option1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_journey_log'>journey_log</span><span class='period'>.</span><span class='id identifier rubyid_finish'>finish</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#STATIONS-constant" title="App::STATIONS (constant)">STATIONS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_option2'>option2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="startup-instance_method">
+  
+    #<strong>startup</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_startup'>startup</span>  <span class='comment'># show welcome window
+</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>  <span class='comment'>## show welcome message
+</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Welcome to the Underground</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='float'>0.5</span><span class='rparen'>)</span>  <span class='comment'>## show a loading bar below welcome message
+</span>
+  <span class='id identifier rubyid_animate_lines'>animate_lines</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>◯</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>o</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>•</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>‘</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>˚</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>˙</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="top_up-instance_method">
+  
+    #<strong>top_up</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_top_up'>top_up</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Please Enter Top-Up Amount</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Account currently has £</span><span class='embexpr_beg'>#{</span><span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>    <span class='comment'># 2. Asks for input &#39;how much?&#39;
+</span>
+    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_prompt_value'>prompt_value</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Enter Amount</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='kw'>redo</span> <span class='kw'>if</span> <span class='id identifier rubyid_try_again?'>try_again?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Invalid Input, only use valid numbers</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Try again? (y/n): </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='kw'>break</span>
+    <span class='kw'>end</span>
+    <span class='kw'>if</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;</span> <span class='const'><span class='object_link'><a href="OysterCard.html" title="OysterCard (class)">OysterCard</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="OysterCard.html#MAX_BALANCE-constant" title="OysterCard::MAX_BALANCE (constant)">MAX_BALANCE</a></span></span>
+      <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Max balance reached, adding £</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="OysterCard.html" title="OysterCard (class)">OysterCard</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="OysterCard.html#MAX_BALANCE-constant" title="OysterCard::MAX_BALANCE (constant)">MAX_BALANCE</a></span></span> <span class='op'>-</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+      <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_top_up'>top_up</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="OysterCard.html" title="OysterCard (class)">OysterCard</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="OysterCard.html#MAX_BALANCE-constant" title="OysterCard::MAX_BALANCE (constant)">MAX_BALANCE</a></span></span> <span class='op'>-</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_top_up'>top_up</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_hide_window'>hide_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@ui</span><span class='period'>.</span><span class='id identifier rubyid_prim'>prim</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_title'>draw_title</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Balance</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Account now has £</span><span class='embexpr_beg'>#{</span><span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_main_loop'>main_loop</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="try_again?-instance_method">
+  
+    #<strong>try_again?</strong>(message, prompt)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/app.rb', line 203</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_try_again?'>try_again?</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_prompt'>prompt</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_empty_window'>empty_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_message'>draw_message</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_setpos'>setpos</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_maxy'>maxy</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span> <span class='int'>2</span><span class='rparen'>)</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_addstr'>addstr</span><span class='lparen'>(</span><span class='id identifier rubyid_prompt'>prompt</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_curs_set'>curs_set</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_echo'>echo</span>
+  <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='ivar'>@input_window</span><span class='period'>.</span><span class='id identifier rubyid_getch'>getch</span>
+  <span class='id identifier rubyid_noecho'>noecho</span>
+  <span class='id identifier rubyid_curs_set'>curs_set</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hide_window'>hide_window</span><span class='lparen'>(</span><span class='ivar'>@input_window</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>y</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>n</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Mar  1 03:10:53 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.24 (ruby-2.7.0).
+</div>
+
+    </div>
+  </body>
+</html>
