@@ -41,7 +41,6 @@ describe(OysterCard) do
       subject.top_up(10)
       subject.touch_in(entry_double)
       subject.touch_out(exit_double)
-      p subject.journey_log.current.complete?
       expect(subject.journey_log.current.complete?).to(be(true))
     end
   end

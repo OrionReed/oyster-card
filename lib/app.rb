@@ -5,21 +5,23 @@ require_relative 'oyster_card'
 require_relative 'clui'
 include(Curses)
 
+# note: this gets me right justified position (accounting for border, new ui shouldn't need the -2)
+# WIDTH - message.length - 2
 class App
-  LOAD_SPEED = 0.001
+  TEMPO = 89/240r
+  # TEMPO = 0.196666667
   STATIONS = CSV.parse(File.read('./data/stations.csv')).drop(1).sort.map { |s| Station.new(s.first, s.last.to_i) }
-  HEIGHT = 26
-  WIDTH = 100
-  TRAIN = '[____]'
+  HEIGHT = 30
+  WIDTH = 110
+  TRAIN = '[ニニ]'
   SMOKE = ['o', '○', '◯', 'O', '•', '‘', '˚', '˙', '', '']
-  SMOKE_OFFSET = 2
   TRAIN_TIME = 0.1
   OPTIONS = [
     { balance: 'View Balance' },
-    { topup: 'Top Up' },
+    { top_up: 'Top Up' },
+    { stations: 'Show Stations' },
     { history: 'Show Journey History' },
-    { start: 'Start Train Journey' },
-    { map: 'Show Stations' },
+    { start_journey: 'Start Train Journey' },
     { quit: 'Quit' },
   ]
 
@@ -42,12 +44,20 @@ class App
   end
 
   def startup
-    # show welcome window
     empty_window(@main)
-    ## show welcome message
-    draw_title('Welcome to the Underground')
-    ## show a loading bar below welcome message
-    animate_lines(['O', 'o', '•', '‘', '˚', '˙', '˙', '˚', '‘', '•', 'o'], 0.1, cycle: true)
+
+    animate_lines(['• # •'], TEMPO / 8, cycle: true, update_each_segment: true)
+    messaage = 'Welcome to the Underground'
+    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, 1)
+    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, 0)
+    draw_message(' ' * (messaage.length + 4), A_NORMAL, :center, -1)
+    draw_message('Welcome to the Underground', A_NORMAL)
+    sleep(2)
+    animate_lines(' ··•○•·· ', TEMPO / 4, cycle: true)
+    animate_lines('  ··•··  ', TEMPO / 4, cycle: true)
+    animate_lines('   ···   ', TEMPO / 4, cycle: true)
+    animate_lines('    ·    ', TEMPO / 4, cycle: true)
+
     empty_window(@main)
   end
 
@@ -59,13 +69,17 @@ class App
       option = draw_options(OPTIONS)
       case option
       when :balance then balance
-      when :topup then top_up
+      when :top_up then top_up
       when :history then history
-      when :start then start
-      when :map then map
+      when :start_journey then start_journey
+      when :stations then stations
       when :quit then quit
       end
     end
+  end
+
+  def format_balance
+    '%.2f' % @card.balance
   end
 
   ############## OPTIONS ##############
@@ -73,24 +87,23 @@ class App
   def balance
     empty_window(@main)
     draw_title('Current Balance')
-    draw_message("Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
+    draw_message("Account has £#{format_balance} and a max balance of £#{OysterCard::MAX_BALANCE}")
     wait_for_key("Press any key.")
   end
 
   def top_up
     value = 0
     1.times do
-      empty_window(@main)
-      draw_title('Please Enter Top-Up Amount')
-      draw_message("Account currently has £#{@card.balance}")
-      # 2. Asks for input 'how much?'
+      empty_window_with_title('Please Enter Top-Up Amount')
+      draw_message("Account currently has £#{format_balance}")
       value = prompt_value("Enter Amount")
       if value.nil?
-        redo if decide?('Invalid Input, only use valid numbers', "Try again? (y/n): ")
+        draw_message('Invalid Input, only use valid numbers')
+        redo if choose_to?('try again')
         return
       end
       if @card.balance + value > OysterCard::MAX_BALANCE
-        draw_title("Max balance reached, adding £#{OysterCard::MAX_BALANCE - @card.balance}")
+        draw_title("Max balance reached, adding £#{format('%.2f', (OysterCard::MAX_BALANCE - @card.balance))}")
         @card.top_up(OysterCard::MAX_BALANCE - @card.balance)
         sleep(2)
         break
@@ -98,15 +111,13 @@ class App
       @card.top_up(value)
     end
     hide_window(@input_window)
-    empty_window(@main)
-    draw_title('Balance')
-    draw_message("Account now has £#{@card.balance}")
+    empty_window_with_title('Balance')
+    draw_message("Account now has £#{format_balance}")
     sleep(2)
   end
 
   def history
-    empty_window(@main)
-    draw_title("Journey History")
+    empty_window_with_title('Journey History')
     if @card.journey_log.history.empty?
       draw_message("No history yet", A_STANDOUT)
       wait_for_key("Press any key.")
@@ -117,11 +128,14 @@ class App
     wait_for_key("Press any key.")
   end
 
-  def start
-    smoke_indeces = []
-    pos = 0
-    empty_window(@main)
-    draw_title('Select start and end stations')
+  def start_journey
+    if @card.balance < OysterCard::MIN_BALANCE
+      empty_window_with_title('Balance too low to travel')
+      draw_message('Please Top Up')
+      sleep(3)
+      return
+    end
+    empty_window_with_title('Select START and END stations')
     option1 = draw_options(STATIONS.map { |s| "#{s.name} - Z#{s.zone}" })
     empty_window(@input_window)
     @input_window.setpos(@input_window.maxy / 2, 2)
@@ -138,23 +152,26 @@ class App
     @main.clear
     @main.refresh
     @main.setpos((@main.maxy / 2) + 1, 0)
-    @main.addstr("[#{STATIONS[option1].name}]#{'=' * (WIDTH - STATIONS[option1].name.length - STATIONS[option2].name.length - 4)}[#{STATIONS[option2].name}]".center(WIDTH, "@"))
+    @main.addstr("[#{STATIONS[option1].name}]#{'=' * (WIDTH - STATIONS[option1].name.length - STATIONS[option2].name.length - 4)}[#{STATIONS[option2].name}]".center(WIDTH))
     @main.refresh
     sleep(1)
-    loop do
+    @card.touch_in(STATIONS[option1])
+
+    smoke_indeces = []
+    pos = 0
+    loop do # animate train
       @main.setpos((@main.maxy / 2) + 2, 0)
-      @main.addstr("Travelled %#{((pos / WIDTH) * 100)}".center(WIDTH))
+      @main.addstr("Travelled #{pos.percent_of(WIDTH - TRAIN.length).to_i}%".center(WIDTH))
       @main.setpos((@main.maxy / 2), 0)
       @main.addstr(" " * WIDTH)
       @main.setpos((@main.maxy / 2), pos)
       @main.addstr(TRAIN)
-
       pos += 1
       smoke_indeces << pos if [false, false, true].sample
       @main.setpos((@main.maxy / 2) - 1, 0)
-      @main.addstr(" " * WIDTH)
+      @main.delch
       smoke_indeces.each do |i|
-        @main.setpos((@main.maxy / 2) - 1, i + SMOKE_OFFSET)
+        @main.setpos((@main.maxy / 2) - 1, i + TRAIN.length)
         @main.addstr(" ")
         unless SMOKE[pos - i].nil?
           @main.addstr(SMOKE[pos - i])
@@ -162,19 +179,13 @@ class App
       end
       @main.refresh
       sleep TRAIN_TIME
-      if pos > WIDTH - TRAIN.length then sleep(0.5); break end
+      if pos > WIDTH - 2 - TRAIN.length then sleep(0.5); break end
     end
-    #        4. Listens for hidden message
-    #        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position
-    #        - Waits until character hits edge then returns to options
-    #        5. Shows 'Journey complete' message then updates log and balance and returns to options
-    @card.journey_log.start(STATIONS[option1])
-    @card.journey_log.finish(STATIONS[option2])
+    @card.touch_out(STATIONS[option2])
   end
 
-  def map
-    empty_window(@main)
-    draw_title("All Stations")
+  def stations
+    empty_window_with_title('All Stations')
     stations_list = STATIONS.map { |s| "#{s.name} - Zone #{s.zone}" }
     animate_list(stations_list)
     wait_for_key("Press any key.")
@@ -190,7 +201,7 @@ class App
 
   ############## UTILITY METHODS ##############
 
-  def draw_empty_titled_window(title)
+  def empty_window_with_title(title)
     empty_window(@main)
     draw_title(title)
   end
@@ -210,18 +221,18 @@ class App
     nil
   end
 
-  def choice?(prompt)
+  def choose_to?(prompt)
     empty_window(@input_window)
     @input_window.setpos(@input_window.maxy / 2, 2)
-    @input_window.addstr(prompt)
+    @input_window.addstr("Press 'y' to #{prompt}: ")
     curs_set(1)
     echo
     @input_window.refresh
-    value = @input_window.getch.downcase == 'y'
+    val = @input_window.getch
     noecho
     curs_set(0)
     hide_window(@input_window)
-    value
+    val.downcase == 'y'
   end
 
   def wait_for_key(prompt)
@@ -233,29 +244,32 @@ class App
     hide_window(@input_window)
   end
 
-  def animate_lines(chars, speed, cycle: false)
-    offset = 2
+  def animate_lines(chars, speed, cycle: false, update_each_segment: false)
+    chars = chars.is_a?(Array) ?
+      chars.flatten :
+      chars.chars
+    offset = 1
     if cycle
       counter = offset
       chars.cycle do |ch|
-        @main.setpos(counter, 2)
-        @main.addstr(ch * (WIDTH - 4))
+        @main.setpos(counter, 1)
+        @main.addstr((ch * WIDTH)[0..WIDTH - 3])
         @main.refresh
         counter += 1
-        sleep speed
+        sleep(speed) if update_each_segment
         break if counter > @main.maxy - 2
       end
     else
       chars.each do |ch|
         @main.setpos(counter, 1)
-        @main.addstr(ch * (WIDTH - 4))
+        @main.addstr((ch * WIDTH)[0..WIDTH - 3])
         @main.refresh
         counter += 1
-        sleep speed
+        sleep(speed) if update_each_segment
         break if counter >= chars.length
       end
     end
-    sleep(1)
+    sleep(speed) unless update_each_segment
   end
 
   def animate_list(arr, speed = 0.25)
@@ -269,11 +283,15 @@ class App
     @main.refresh
   end
 
-  def draw_message(message, style = A_STANDOUT)
-    padding = 8
-    @main.setpos(@main.maxy / 2, 8)
+  def draw_message(message, style = A_STANDOUT, alignment = :center, y_offset = 0)
+    pos = case alignment
+    when :left then 2
+    when :right then WIDTH - message.length - 2
+    when :center then (WIDTH / 2) - (message.length / 2)
+    end
+    @main.setpos((@main.maxy / 2) + y_offset, pos)
     @main.attrset(style)
-    @main.addstr(message.center(@main.maxx - (padding * 2)))
+    @main.addstr(message)
     @main.refresh
     @main.attrset(A_NORMAL)
   end
@@ -328,6 +346,12 @@ class App
   def hide_window(window)
     window.clear
     window.refresh
+  end
+end
+
+class Numeric
+  def percent_of(n)
+    to_f / n.to_f * 100.0
   end
 end
 
