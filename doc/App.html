@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class App - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-animate_lines">#animate_lines</a>
+    
+    <li ><a href="#method-i-balance">#balance</a>
+    
+    <li ><a href="#method-i-draw_message">#draw_message</a>
+    
+    <li ><a href="#method-i-draw_options">#draw_options</a>
+    
+    <li ><a href="#method-i-draw_options_window">#draw_options_window</a>
+    
+    <li ><a href="#method-i-draw_title">#draw_title</a>
+    
+    <li ><a href="#method-i-empty_window">#empty_window</a>
+    
+    <li ><a href="#method-i-hide_window">#hide_window</a>
+    
+    <li ><a href="#method-i-history">#history</a>
+    
+    <li ><a href="#method-i-main_loop">#main_loop</a>
+    
+    <li ><a href="#method-i-prompt_value">#prompt_value</a>
+    
+    <li ><a href="#method-i-quit">#quit</a>
+    
+    <li ><a href="#method-i-run">#run</a>
+    
+    <li ><a href="#method-i-start">#start</a>
+    
+    <li ><a href="#method-i-startup">#startup</a>
+    
+    <li ><a href="#method-i-top_up">#top_up</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-App">
+  <h1 id="class-App" class="class">
+    class App
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="HEIGHT">HEIGHT
+        
+        <dd>
+        
+      
+        <dt id="LOAD_SPEED">LOAD_SPEED
+        
+        <dd>
+        
+      
+        <dt id="OPTIONS">OPTIONS
+        
+        <dd>
+        
+      
+        <dt id="STATIONS">STATIONS
+        
+        <dd>
+        
+      
+        <dt id="WIDTH">WIDTH
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+  <span class="ruby-comment"># Get all stations from stations.csv file and create new station object for each one</span>
+  <span class="ruby-identifier">init_screen</span> <span class="ruby-comment"># start curses</span>
+  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">0</span>) <span class="ruby-comment"># hide cursor</span>
+  <span class="ruby-identifier">noecho</span> <span class="ruby-comment"># dont echo all input straight away</span>
+  <span class="ruby-ivar">@card</span> = <span class="ruby-constant">OysterCard</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@main_window</span> = <span class="ruby-constant">Curses</span><span class="ruby-operator">::</span><span class="ruby-constant">Window</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">HEIGHT</span>, <span class="ruby-constant">WIDTH</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">lines</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">HEIGHT</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">cols</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">WIDTH</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)
+  <span class="ruby-ivar">@input_window</span> = <span class="ruby-constant">Curses</span><span class="ruby-operator">::</span><span class="ruby-constant">Window</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">3</span>, <span class="ruby-constant">WIDTH</span>, (<span class="ruby-constant">Curses</span>.<span class="ruby-identifier">lines</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">HEIGHT</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">HEIGHT</span>, <span class="ruby-constant">Curses</span>.<span class="ruby-identifier">cols</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span> <span class="ruby-operator">-</span> <span class="ruby-constant">WIDTH</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-animate_lines" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">animate_lines</span><span
+            class="method-args">(chars, cycle = false)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="animate_lines-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">animate_lines</span>(<span class="ruby-identifier">chars</span>, <span class="ruby-identifier">cycle</span> = <span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">offset</span> = <span class="ruby-value">2</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">cycle</span>
+    <span class="ruby-identifier">counter</span> = <span class="ruby-identifier">offset</span>
+    <span class="ruby-identifier">chars</span>.<span class="ruby-identifier">cycle</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ch</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">counter</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
+      <span class="ruby-value">2</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">i</span>)
+        <span class="ruby-ivar">@main_window</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ch</span>
+        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
+        <span class="ruby-identifier">sleep</span> <span class="ruby-constant">LOAD_SPEED</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">counter</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">chars</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-value">2</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">offset</span>, <span class="ruby-identifier">i</span>)
+        <span class="ruby-identifier">char</span> = <span class="ruby-identifier">chars</span>[<span class="ruby-identifier">line</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">chars</span>[<span class="ruby-identifier">line</span>]
+        <span class="ruby-ivar">@main_window</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">char</span>
+        <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
+        <span class="ruby-identifier">sleep</span> <span class="ruby-constant">LOAD_SPEED</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-balance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">balance</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="App.html#OPTIONS"><code>OPTIONS</code></a> ##############</p>
+          
+          
+
+          
+          <div class="method-source-code" id="balance-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">balance</span>
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Current Balance&#39;</span>)
+  <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account has £#{@card.balance} and a max balance of £#{OysterCard::MAX_BALANCE}&quot;</span>)
+  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
+  <span class="ruby-identifier">main_loop</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-draw_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">draw_message</span><span
+            class="method-args">(message, style = A_STANDOUT)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="draw_message-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 172</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_message</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">style</span> = <span class="ruby-constant">A_STANDOUT</span>)
+  <span class="ruby-identifier">padding</span> = <span class="ruby-value">8</span>
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-value">8</span>)
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-identifier">style</span>)
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-identifier">message</span>.<span class="ruby-identifier">center</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">padding</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)))
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-draw_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">draw_options</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="draw_options-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">position</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-keyword">while</span> (<span class="ruby-identifier">ch</span> = <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">getch</span>)
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">ch</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;w&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;s&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;d&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-keyword">break</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;q&#39;</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">exit</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">position</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">position</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">position</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">options</span>[<span class="ruby-identifier">position</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-draw_options_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">draw_options_window</span><span
+            class="method-args">(options, selection_index)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="draw_options_window-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 198</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_options_window</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">selection_index</span>)
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span>.<span class="ruby-identifier">with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span>, <span class="ruby-value">2</span>) <span class="ruby-comment"># set position to current option</span>
+    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">selection_index</span> <span class="ruby-operator">?</span> <span class="ruby-constant">A_STANDOUT</span> <span class="ruby-operator">:</span> <span class="ruby-constant">A_NORMAL</span>) <span class="ruby-comment"># highlight if it matches selection index</span>
+    <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot;#{i + 1}. #{s.values.first}&quot;</span>) <span class="ruby-comment"># write the name</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-draw_title" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">draw_title</span><span
+            class="method-args">(string)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="draw_title-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">draw_title</span>(<span class="ruby-identifier">string</span>)
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>)
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot; #{string} &quot;</span>.<span class="ruby-identifier">center</span>(<span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">maxx</span> <span class="ruby-operator">-</span> <span class="ruby-value">4</span>, <span class="ruby-string">&#39;—&#39;</span>))
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">refresh</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-empty_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty_window</span><span
+            class="method-args">(window)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="empty_window-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 207</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">empty_window</span>(<span class="ruby-identifier">window</span>)
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">clear</span>
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">box</span>(<span class="ruby-string">&quot;|&quot;</span>, <span class="ruby-string">&quot;-&quot;</span>)
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-value">1</span>, <span class="ruby-value">1</span>)
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">refresh</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-hide_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hide_window</span><span
+            class="method-args">(window)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="hide_window-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 221</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">hide_window</span>(<span class="ruby-identifier">window</span>)
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">clear</span>
+  <span class="ruby-identifier">window</span>.<span class="ruby-identifier">refresh</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-history" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">history</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="history-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">history</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-main_loop" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">main_loop</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="main_loop-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main_loop</span>
+  <span class="ruby-ivar">@main_window</span>.<span class="ruby-identifier">attrset</span>(<span class="ruby-constant">A_NORMAL</span>)
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&quot;Options (Use W/S to move, D to select)&quot;</span>)
+  <span class="ruby-identifier">option</span> = <span class="ruby-identifier">draw_options</span>(<span class="ruby-constant">OPTIONS</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">option</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:balance</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">balance</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:topup</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">top_up</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:start</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">start</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:quit</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">quit</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prompt_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prompt_value</span><span
+            class="method-args">(prompt)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>UTILITY METHODS ##############</p>
+          
+          
+
+          
+          <div class="method-source-code" id="prompt_value-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prompt_value</span>(<span class="ruby-identifier">prompt</span>)
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@input_window</span>)
+  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">setpos</span>(<span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">maxy</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>, <span class="ruby-value">2</span>)
+  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">addstr</span>(<span class="ruby-node">&quot;#{prompt}: &quot;</span>)
+  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">1</span>)
+  <span class="ruby-identifier">echo</span>
+  <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">refresh</span>
+  <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@input_window</span>.<span class="ruby-identifier">getstr</span>
+  <span class="ruby-identifier">noecho</span>
+  <span class="ruby-identifier">curs_set</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">hide_window</span>(<span class="ruby-ivar">@input_window</span>)
+  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-quit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">quit</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="quit-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">quit</span>
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+  <span class="ruby-identifier">draw_message</span>(<span class="ruby-string">&#39;Goodbye!&#39;</span>)
+  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
+  <span class="ruby-identifier">close_screen</span>
+  <span class="ruby-identifier">exit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-run" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="run-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span> <span class="ruby-comment"># main flow</span>
+  <span class="ruby-identifier">startup</span>
+  <span class="ruby-identifier">main_loop</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start</span>
+  <span class="ruby-comment">#     1. Shows list of stations with selector</span>
+  <span class="ruby-comment">#     2. After selecting one, shows it in new window</span>
+  <span class="ruby-comment">#     3. After selecting second, shows it in new window</span>
+  <span class="ruby-comment">#        1. Shows distance and cost of journey</span>
+  <span class="ruby-comment">#        2. Asks if user wants to return to options or start journey</span>
+  <span class="ruby-comment">#        - Returns to options menu if yes</span>
+  <span class="ruby-comment">#        3. Shows 3-line train animation in new window</span>
+  <span class="ruby-comment">#        - Shows string moving between two station names</span>
+  <span class="ruby-comment">#        - Shows distance travelled and percentage complete (considering journey distance)</span>
+  <span class="ruby-comment">#        - Shows smoke as series of animated unicode chars [&#39;o&#39;, &#39;○&#39;, &#39;◯&#39;, &#39;O&#39;, &#39;•&#39;, &#39;‘&#39;, &#39;˚&#39;, &#39;˙&#39;, &#39;&#39;, &#39;&#39;] starting from train position and staying at same position</span>
+  <span class="ruby-comment">#          This can be done by adding index of train position to a hash,</span>
+  <span class="ruby-comment">#          then each frame, go through each position in smoke string and check if that index exists in the hash</span>
+  <span class="ruby-comment">#          if it does, set the current character to current train index - matched index, if it&#39;s out of range it means the smoke has cleared so print nothing</span>
+  <span class="ruby-comment">#        4. Listens for hidden message</span>
+  <span class="ruby-comment">#        -  If secret button is pressed, writes character (𓀠 or 웃) traversing backwards on track from train position</span>
+  <span class="ruby-comment">#        - Waits until character hits edge then returns to options</span>
+  <span class="ruby-comment">#        5. Shows &#39;Journey complete&#39; message then updates log and balance and returns to options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-startup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">startup</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="startup-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">startup</span>
+  <span class="ruby-comment"># show welcome window</span>
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+  <span class="ruby-comment"># show welcome message</span>
+  <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Welcome to the Underground&#39;</span>)
+  <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.1</span>)
+  <span class="ruby-comment"># show a loading bar below welcome message</span>
+  <span class="ruby-identifier">animate_lines</span>([<span class="ruby-string">&#39;O&#39;</span>, <span class="ruby-string">&#39;◯&#39;</span>, <span class="ruby-string">&#39;o&#39;</span>, <span class="ruby-string">&#39;•&#39;</span>, <span class="ruby-string">&#39;‘&#39;</span>, <span class="ruby-string">&#39;˚&#39;</span>, <span class="ruby-string">&#39;˙&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>], <span class="ruby-keyword">false</span>)
+  <span class="ruby-comment"># animate_lines([&#39; &#39;], true)</span>
+  <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-top_up" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">top_up</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="top_up-source">
+            <pre><span class="ruby-comment"># File lib/app.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">top_up</span>
+  <span class="ruby-comment"># 1. Clears screen, shows current balance</span>
+  <span class="ruby-value">1</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+    <span class="ruby-identifier">draw_title</span>(<span class="ruby-string">&#39;Please Enter Top-Up Amount&#39;</span>)
+    <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account currently has £#{@card.balance}&quot;</span>)
+    <span class="ruby-comment"># 2. Asks for input &#39;how much?&#39;</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">value</span> = <span class="ruby-identifier">prompt_value</span>(<span class="ruby-string">&quot;Enter Amount&quot;</span>)
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">draw_message</span>(<span class="ruby-string">&quot;RESCUED!!!&quot;</span>)
+      <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
+      <span class="ruby-keyword">redo</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">try_again?</span>(<span class="ruby-string">&#39;Invalid Amount: Max balance of £90 exceeded&#39;</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-keyword">redo</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">try_again?</span>(<span class="ruby-string">&#39;Invalid Input, please try again&#39;</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#        Tops up card</span>
+    <span class="ruby-identifier">hide_window</span>(<span class="ruby-ivar">@input_window</span>)
+    <span class="ruby-ivar">@card</span>.<span class="ruby-identifier">top_up</span>(<span class="ruby-identifier">value</span>)
+    <span class="ruby-identifier">empty_window</span>(<span class="ruby-ivar">@main_window</span>)
+    <span class="ruby-identifier">draw_message</span>(<span class="ruby-node">&quot;Account now has £#{@card.balance}&quot;</span>)
+    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">main_loop</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
