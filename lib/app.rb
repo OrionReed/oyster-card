@@ -2,7 +2,6 @@ require 'curses'
 require 'csv'
 require_relative 'station'
 require_relative 'oyster_card'
-require_relative 'clui'
 include(Curses)
 
 class App

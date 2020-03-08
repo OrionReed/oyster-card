@@ -198,5 +198,5 @@ class Numeric
   end
 end
 
-app = App.new
+app = AppV2.new
 app.run
